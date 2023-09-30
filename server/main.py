@@ -7,8 +7,8 @@ app = Flask(__name__)
 @app.post("/api/runtime")
 def runtime():
     code = request.get_json()
-    result, runtime = run_code(code)
-    return {"result": result, "runtime": runtime}
+    results = run_code(code)
+    return results
 
 
 if __name__ == "__main__":
