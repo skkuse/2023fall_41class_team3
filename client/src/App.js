@@ -1,5 +1,11 @@
 const App = () => {
-  return <>Init</>;
+  return (
+    <>
+      <Header />
+      <CodeInput />
+      <Analysis />
+    </>
+  );
 };
 
 export default App;
