@@ -5,6 +5,7 @@ const CodeInput = () => {
   const [codeInput, setCodeInput] = useState("");
   const [codeResult, setCodeResult] = useState("");
   const [runtime, setRuntime] = useState(0);
+  const [cpuPercentage, setCpuPercentage] = useState(100);
 
   useEffect(() => {
     setCodeInput(localStorage.getItem("code") || "");
@@ -25,6 +26,7 @@ const CodeInput = () => {
       .then((data) => {
         setCodeResult(data.result);
         setRuntime(data.runtime);
+        setCpuPercentage(data.cpu_percent);
       })
       .then(() => setShowCodeInput(false));
   };
@@ -44,10 +46,14 @@ const CodeInput = () => {
   };
 
   const getEnergyNeeded = (runtime) => {
-    const power_draw = 1;
+    const powerDrawForCore = 0.01;
+    const cpuUsage = cpuPercentage;
+    const powerDrawForMemory = 0.745;
+
+    const powerDraw = powerDrawForCore * cpuUsage + powerDrawForMemory;
     const PUE = 1.67;
     const PSF = 1;
-    return runtime * power_draw * PUE * PSF;
+    return runtime * powerDraw * PUE * PSF;
   };
 
   const getCarbonFootprint = (runtime) => {
