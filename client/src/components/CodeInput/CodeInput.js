@@ -56,6 +56,12 @@ const CodeInput = () => {
     return energy_needed * carbon_intensity;
   };
 
+  const formatNumber = (number, precision) => {
+    return (
+      Math.round(number * Math.pow(10, precision)) / Math.pow(10, precision)
+    ).toFixed(precision);
+  };
+
   const codeInputElement = (
     <form method="POST" action="/api/runtime" onSubmit={handleFormSubmit}>
       <div className="w-full mb-4 border border-gray-200 rounded-lg bg-gray-50 dark:bg-gray-700 dark:border-gray-600">
@@ -119,9 +125,13 @@ const CodeInput = () => {
           />
         </div>
         <ul className="h-16 text-white m-5">
-          <li>Runtime: {runtime} sec</li>
-          <li>Energy Needed: {getEnergyNeeded(runtime)} mg</li>
-          <li>Carbon Footprint: {getCarbonFootprint(runtime)}</li>
+          <li>Runtime: {formatNumber(runtime, 4)} (sec)</li>
+          <li>
+            Energy Needed: {formatNumber(getEnergyNeeded(runtime), 4)} (kWh)
+          </li>
+          <li>
+            Carbon Footprint: {formatNumber(getCarbonFootprint(runtime), 4)} (g)
+          </li>
         </ul>
         <div className="flex justify-items-end flex-row-reverse px-3 py-2 border-t dark:border-gray-600">
           <button
