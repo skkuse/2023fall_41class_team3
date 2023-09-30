@@ -4,7 +4,7 @@ from run import run_code
 app = Flask(__name__)
 
 
-@app.route("/api/runtime")
+@app.post("/api/runtime")
 def runtime():
     code = request.get_json()
     result, runtime = run_code(code)
