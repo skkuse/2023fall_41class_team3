@@ -46,9 +46,9 @@ const CodeInput = () => {
   };
 
   const getEnergyNeeded = (runtime) => {
-    const powerDrawForCore = 0.01;
+    const powerDrawForCore = 0.00001;
     const cpuUsage = cpuPercentage;
-    const powerDrawForMemory = 0.745;
+    const powerDrawForMemory = 0.000745;
 
     const powerDraw = powerDrawForCore * cpuUsage + powerDrawForMemory;
     const PUE = 1.67;
@@ -58,7 +58,7 @@ const CodeInput = () => {
 
   const getCarbonFootprint = (runtime) => {
     const energy_needed = getEnergyNeeded(runtime);
-    const carbon_intensity = 415.6;
+    const carbon_intensity = 41.56;
     return energy_needed * carbon_intensity;
   };
 
@@ -85,6 +85,7 @@ const CodeInput = () => {
             value={codeInput}
             rows="4"
             className="w-full px-0 text-sm text-gray-900 bg-white border-0 dark:bg-gray-800 focus:ring-0 dark:text-white dark:placeholder-gray-400 h-96 font-mono"
+            style={{height:"60vh"}}
             placeholder="Code Input"
             onKeyDown={handleTextareaKeydown}
             onChange={handleTextareaChange}
@@ -131,7 +132,7 @@ const CodeInput = () => {
           />
         </div>
         <ul className="h-16 text-white m-5">
-          <li>Runtime: {formatNumber(runtime, 4)} (sec)</li>
+          <li>Runtime: {formatNumber(runtime, 5)} (sec)</li>
           <li>
             Energy Needed: {formatNumber(getEnergyNeeded(runtime), 4)} (kWh)
           </li>

@@ -15,8 +15,8 @@ class JavaThread(threading.Thread):
         self.results = {}
 
     def run(self):
-        os.system(f"tee -a main.java << EOF\n{self.code}\n")
-        os.system("javac main.java")
+        os.system(f"tee -a Main.java << EOF\n{self.code}\n")
+        os.system("javac Main.java")
         with open("results.txt", "w") as fd:
             command = "java Main"
             killed = False
@@ -31,7 +31,8 @@ class JavaThread(threading.Thread):
                     break
 
                 try:
-                    self.cpu_percent.append(proc_info.cpu_percent(interval=1))
+                    pass
+                    # self.cpu_percent.append(proc_info.cpu_percent(interval=1))
 
                 except psutil.NoSuchProcess:
                     break
@@ -47,9 +48,9 @@ class JavaThread(threading.Thread):
         self.results = {
             "result": result,
             "runtime": (end - start),
-            "cpu_percent": sum(self.cpu_percent),
+            "cpu_percent": sum(self.cpu_percent) / len(self.cpu_percent),
         }
-        os.system("rm main.java Main.class results.txt")
+        os.system("rm Main.java Main.class results.txt")
 
 
 def run_code(code: str):
