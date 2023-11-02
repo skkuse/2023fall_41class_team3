@@ -45,3 +45,9 @@ flask db upgrade // 데이터베이스에 마이그레이션 적용<br/>
 ### DB schema 수정 시
 flask db migrate <br/>
 flask db upgrade <br/>
+
+### 서버 실행
+flask run
+
+### api test
+curl -X POST -H "Content-Type: application/json" -d '{"username": "newuser", "email": "newuser@example.com"}' http://localhost:5000/user/add
