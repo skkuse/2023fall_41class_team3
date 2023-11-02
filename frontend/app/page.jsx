@@ -1,3 +1,4 @@
+import UserCode from "@/components/UserCode";
 import React from "react";
 
 const Home = () => {
@@ -12,6 +13,7 @@ const Home = () => {
         Promptopia is an open-source AI prompting tool for modern world to
         discover, create and share creative prompts
       </p>
+      <UserCode />
     </section>
   );
 };
