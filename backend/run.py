@@ -1,60 +1,38 @@
 import os
+import pathlib
 import subprocess
-import threading
-import time
-
-import psutil
+from multiprocessing import Process
 
 
-class JavaThread(threading.Thread):
-    def __init__(self, code: str, max_time: int) -> None:
-        super(JavaThread, self).__init__()
-        self.code = code
-        self.max_time = max_time
-        self.cpu_percent = [100]
-        self.results = {}
+def _run_container(code: str, pwd: str):
+    try:
+        container_run_info = subprocess.check_output(
+            f"docker run \
+                -it --rm \
+                -v {pwd}/container/exec_results.txt:/app/exec_results.txt\
+                ecoder:latest",
+            shell=True,
+        )
+        print(container_run_info.decode())
 
-    def run(self):
-        os.system(f"tee -a Main.java << EOF\n{self.code}\n")
-        os.system("javac Main.java")
-        with open("results.txt", "w") as fd:
-            command = "java Main"
-            killed = False
-
-            start = time.time()
-            process = subprocess.Popen(command.split(" "), stdout=fd)
-            pid = process.pid
-            proc_info = psutil.Process(process.pid)
-
-            while True:
-                if process.poll() is not None:
-                    break
-
-                try:
-                    pass
-                    # self.cpu_percent.append(proc_info.cpu_percent(interval=1))
-
-                except psutil.NoSuchProcess:
-                    break
-
-            end = time.time()
-
-        if killed:
-            result = "Timeout, process killed."
-        else:
-            with open("results.txt", "r") as f:
-                result = f.read()
-
-        self.results = {
-            "result": result,
-            "runtime": (end - start),
-            "cpu_percent": sum(self.cpu_percent) / len(self.cpu_percent),
-        }
-        os.system("rm Main.java Main.class results.txt")
+    except Exception as e:
+        print(f"Docker container run failed: {e}")
+        return 0
 
 
-def run_code(code: str):
-    thread = JavaThread(code, 100)
-    thread.start()
-    thread.join(timeout=60)
-    return thread.results
+def _read_results() -> str:
+    # TODO
+    return ""
+
+
+def run_code(code: str, pwd: str):
+    print(code)
+    print(type(code))
+    with open(f"{pwd}/container/Main.java", "w") as f:
+        f.write(code)
+    p = Process(target=_run_container, args=(code, pwd))
+    p.start()
+    p.join()
+
+    results = _read_results()
+    return results

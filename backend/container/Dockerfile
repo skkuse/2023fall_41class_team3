@@ -12,4 +12,6 @@ COPY ./Main.java /app
 
 RUN javac Main.java
 
-CMD ["bash", "-c", "{ time java Main ; } >> exec.txt 2>> exec.txt && cat /sys/fs/cgroup/cpu.stat >> exec.txt"]
+CMD ["bash", "-c",\
+    "{ time java Main ; } >> exec_results.txt 2>> exec_results.txt &&\
+    cat /sys/fs/cgroup/cpu.stat >> exec_results.txt"]
