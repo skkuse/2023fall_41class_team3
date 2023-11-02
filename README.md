@@ -69,3 +69,6 @@ body
 -   DB_USERNAME
 -   DB_PASSWORD
 -   DB_DATABASE
+
+### Version
+MySQL: 8.0.34
