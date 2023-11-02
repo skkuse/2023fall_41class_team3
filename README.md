@@ -17,33 +17,34 @@ flush privileges;
 <br/>
 
 ### 가상환경 생성
-cd backend
-sudo apt install python3.9-venv
-python3 -m venv venv
-source venv/bin/activate
+cd backend <br/>
+sudo apt install python3.9-venv<br/>
+python3 -m venv venv<br/>
+source venv/bin/activate<br/>
 
 ### mysql 연결 및 orm에 필요한 라이브러리 설치
-pip install flask flask-sqlalchemy flask-migrate python-dotenv pymysql
-pip install python-dotenv // 보안 설정(.env파일)
+pip install flask flask-sqlalchemy flask-migrate python-dotenv pymysql<br/>
+pip install python-dotenv // 보안 설정(.env파일)<br/>
 
 ### .env configuration
-.env파일 생성 및 작성 (각자 환경에 맞게 변경)
-
-FLASK_APP=run.py
-FLASK_ENV=development
-
-DB_USER=admin
-DB_PASSWORD=password
-DB_HOST=localhost
-DB_PORT=3306
-DB_NAME=codeco
+.env파일 생성 및 작성 (각자 환경에 맞게 변경)<br/>
+<br/>
+FLASK_APP=run.py<br/>
+FLASK_ENV=development<br/>
+<br/>
+DB_USER=admin<br/>
+DB_PASSWORD=password<br/>
+DB_HOST=localhost<br/>
+DB_PORT=3306<br/>
+DB_NAME=codeco<br/>
 
 ### 마이그레이션 설정
-flask db init // 초기화
-flask db migrate -m "Initial migration." //마이그레이션 파일 생성
-flask db upgrade // 데이터베이스에 마이그레이션 적용
+flask db init // 초기화<br/>
+flask db migrate -m "Initial migration." //마이그레이션 파일 생성<br/>
+flask db upgrade // 데이터베이스에 마이그레이션 적용<br/>
+<br/>
 <br/>
 
 ### DB schema 수정 시
-flask db migrate 
-flask db upgrade
+flask db migrate <br/>
+flask db upgrade <br/>
