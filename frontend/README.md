@@ -1,4 +1,8 @@
-## 알아야 할 것
+## 알면 좋은 거
+
+**특정 폴더를 제외한 폴더구조 출력**
+
+    tree -I node_modules
 
 ## Getting Started
 
