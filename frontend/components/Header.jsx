@@ -2,9 +2,9 @@
 import Link from "next/link";
 import Image from "next/image";
 import ReactPlayer from "react-player";
+import dynamic from 'next/dynamic'
 import { useState, useEffect } from "react";
 // import { signIn, signOut, useSession, getProviders } from "next-auth/react";
-
 const Header = () => {
   return (
     <div className="w-full bg-primary-green">

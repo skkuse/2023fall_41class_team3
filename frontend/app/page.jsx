@@ -15,7 +15,7 @@ const Home = () => {
         영상 배너 <br className="max-md:hidden" />
         <span className="text-center green_gradient">CodEco</span>
       </h1>
-      <div>
+      <div className="flex-col w-full">
         <UserCode />
         <div>
           <div>
