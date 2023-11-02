@@ -15,9 +15,11 @@ const Home = () => {
         영상 배너 <br className="max-md:hidden" />
         <span className="text-center green_gradient">CodEco</span>
       </h1>
-      <div className="flex-col w-full">
-        <UserCode />
-        <div>
+      <div>
+        <div className="flex-center">
+          <UserCode />
+        </div>
+        <div className="flex flex-row gap-6 flex-center">
           <div>
             <AlgoConst />
             <ServerEviornments />
