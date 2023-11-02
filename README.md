@@ -9,11 +9,10 @@
  sudo /etc/init.d/mysql restart (실행 안될 경우)<br/>
 
 ### database 생성 및 유저 권한 부여
-create database codeco;
-create user 'admin'@'localhost' identified by 'password'; // password는 사용할 비밀번호로 변경
-grant all privileges on codeco.* to 'admin'@'localhost';
-flush privileges;
-<br/>
+create database codeco; <br/>
+create user 'admin'@'localhost' identified by 'password'; // password는 사용할 비밀번호로 변경<br/>
+grant all privileges on codeco.* to 'admin'@'localhost';<br/>
+flush privileges;<br/>
 <br/>
 
 ### 가상환경 생성
@@ -31,7 +30,6 @@ pip install python-dotenv // 보안 설정(.env파일)<br/>
 <br/>
 FLASK_APP=run.py<br/>
 FLASK_ENV=development<br/>
-<br/>
 DB_USER=admin<br/>
 DB_PASSWORD=password<br/>
 DB_HOST=localhost<br/>
@@ -42,7 +40,6 @@ DB_NAME=codeco<br/>
 flask db init // 초기화<br/>
 flask db migrate -m "Initial migration." //마이그레이션 파일 생성<br/>
 flask db upgrade // 데이터베이스에 마이그레이션 적용<br/>
-<br/>
 <br/>
 
 ### DB schema 수정 시
