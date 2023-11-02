@@ -1,5 +1,11 @@
-import UserCode from "@/components/UserCode";
 import React from "react";
+
+import UserCode from "@/components/UserCode";
+import AlgoConst from "@/components/AlgoConst";
+import ServerEviornments from "@/components/ServerEviornments";
+import Runtime from "@/components/Runtime";
+import FootPrintResult from "@/components/FootPrintResult";
+import Banner from "@/components/Banner";
 
 const Home = () => {
   //   return <div>Home</div>;
@@ -9,11 +15,20 @@ const Home = () => {
         영상 배너 <br className="max-md:hidden" />
         <span className="text-center green_gradient">CodEco</span>
       </h1>
-      <p className="text-center desc">
-        Promptopia is an open-source AI prompting tool for modern world to
-        discover, create and share creative prompts
-      </p>
-      <UserCode />
+      <Banner />
+      <div>
+        <UserCode />
+        <div>
+          <div>
+            <AlgoConst />
+            <ServerEviornments />
+            <Runtime />
+          </div>
+          <div>
+            <FootPrintResult />
+          </div>
+        </div>
+      </div>
     </section>
   );
 };
