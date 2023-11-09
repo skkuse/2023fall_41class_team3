@@ -4,7 +4,8 @@ import UserCode from "@/components/UserCode";
 import AlgoConst from "@/components/AlgoConst";
 import ServerEviornments from "@/components/ServerEviornments";
 import Runtime from "@/components/Runtime";
-import FootPrintResult from "@/components/FootPrintResult";
+import Results from "@/components/Results/Results";
+// import FootPrintResult from "@/components/FootPrintResult";
 
 const Home = () => {
   return (
@@ -20,7 +21,7 @@ const Home = () => {
             <Runtime />
           </div>
           <div className="w-2/3">
-            <FootPrintResult />
+            <Results />
           </div>
         </div>
       </div>
