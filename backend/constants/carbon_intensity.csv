@@ -1,0 +1,132 @@
+area_code,region,CI
+WORLD,World/Any/Any,475.0
+TW,Asia/China/Taiwan,509.0
+IL,Asia/Israel/Any,558.0
+ZA,Africa/South Africa/Any,900.6
+CN,Asia/China/Any,537.4
+CN-HK,Asia/China/Hong Kong (HK Electricity Company),710.0
+CN-HK2,Asia/China/Hong Kong (CLP Group),650.0
+IN,Asia/India/Any,708.2
+ID,Asia/Indonesia/Any,717.7
+JP,Asia/Japan/Any,465.8
+KR,Asia/Korea/Any,415.6
+SA,Asia/Saudi Arabia/Any,505.9
+SG,Asia/Singapore/Any,408.0
+TH,Asia/Thailand/Any,481.0
+TR,Asia/Turkey/Any,375.0
+AE,Asia/United Arab Emirates/Any,417.89
+AT,Europe/Austria/Any,111.18
+BE,Europe/Belgium/Any,161.89
+BG,Europe/Bulgaria/Any,372.12
+HR,Europe/Croatia/Any,226.96
+CY,Europe/Cyprus/Any,642.9
+CZ,Europe/Czech Republic/Any,495.49
+DK,Europe/Denmark/Any,142.52
+EE,Europe/Estonia/Any,598.69
+FI,Europe/Finland/Any,95.32
+FR,Europe/France/Any,51.28
+DE,Europe/Germany/Any,338.66
+GR,Europe/Greece/Any,410.01
+HU,Europe/Hungary/Any,243.75
+IS,Europe/Iceland/Any,0.13
+IE,Europe/Ireland/Any,335.99
+IT,Europe/Italy/Any,323.84
+LV,Europe/Latvia/Any,215.67
+LT,Europe/Lithuania/Any,253.56
+LU,Europe/Luxembourg/Any,101.36
+MT,Europe/Malta/Any,390.62
+NL,Europe/Netherlands/Any,374.34
+NO,Europe/Norway/Any,7.62
+PL,Europe/Poland/Any,759.62
+PT,Europe/Portugal/Any,201.55
+RO,Europe/Romania/Any,261.84
+RU,Europe/Russian Federation/Any,310.2
+RS,Europe/Serbia/Any,776.69
+SK,Europe/Slovakia/Any,155.48
+SI,Europe/Slovenia/Any,224.05
+ES,Europe/Spain/Any,171.03
+SE,Europe/Sweden/Any,5.67
+CH,Europe/Switzerland/Any,11.52
+GB,Europe/United Kingdom/Any,231.12
+CA,North America/Canada/Any,120.0
+CA-AB,North America/Canada/Alberta,670.0
+CA-BC,North America/Canada/British Columbia,19.7
+CA-MT,North America/Canada/Manitoba,1.3
+CA-NB,North America/Canada/New Brunswick,270.0
+CA-NL,North America/Canada/Newfoundland and Labrador,29.0
+CA-NS,North America/Canada/Nova Scotia,810.0
+CA-NT,North America/Canada/Northwest Territories,200.0
+CA-NU,North America/Canada/Nunavut,900.0
+CA-ON,North America/Canada/Ontario,30.0
+CA-PE,North America/Canada/Prince Edward Island,2.0
+CA-QC,North America/Canada/Quebec,1.5
+CA-SK,North America/Canada/Saskatchewan,710.0
+CA-YT,North America/Canada/Yukon Territory,111.0
+MX,North America/Mexico/Any,431.4
+US,North America/United States of America/Any,423.94
+US-AK,North America/United States of America/Alaska,462.33
+US-AL,North America/United States of America/Alabama,344.37
+US-AR,North America/United States of America/Arkansas,454.4
+US-AZ,North America/United States of America/Arizona,351.99
+US-CA,North America/United States of America/California,216.43
+US-CO,North America/United States of America/Colorado,582.34
+US-CT,North America/United States of America/Connecticut,253.0
+US-DC,North America/United States of America/Washington DC,382.68
+US-DE,North America/United States of America/Delaware,360.68
+US-FL,North America/United States of America/Florida,402.2
+US-GA,North America/United States of America/Georgia,345.58
+US-HI,North America/United States of America/Hawaii,731.21
+US-IA,North America/United States of America/Iowa,293.85
+US-ID,North America/United States of America/Idaho,101.89
+US-IL,North America/United States of America/Illinois,265.8
+US-IN,North America/United States of America/Indiana,740.02
+US-KS,North America/United States of America/Kansas,384.08
+US-KY,North America/United States of America/Kentucky,804.75
+US-LA,North America/United States of America/Louisiana,363.82
+US-MA,North America/United States of America/Massachusetts,420.32
+US-MD,North America/United States of America/Maryland,308.21
+US-ME,North America/United States of America/Maine,109.0
+US-MI,North America/United States of America/Michigan,448.08
+US-MN,North America/United States of America/Minnesota,367.93
+US-MO,North America/United States of America/Missouri,773.0
+US-MS,North America/United States of America/Mississip,427.07
+US-MT,North America/United States of America/Montana,435.87
+US-NC,North America/United States of America/North Carolina,309.73
+US-ND,North America/United States of America/North Dakota,663.05
+US-NE,North America/United States of America/Nebraska,573.51
+US-NH,North America/United States of America/New Hampshire,118.44
+US-NJ,North America/United States of America/New Jersey,235.1
+US-NM,North America/United States of America/New Mexico,601.77
+US-NV,North America/United States of America/Nevada,342.25
+US-NY,North America/United States of America/New York,199.01
+US-OH,North America/United States of America/Ohio,598.58
+US-OK,North America/United States of America/Oklahoma,338.44
+US-OR,North America/United States of America/Oregon,163.15
+US-PA,North America/United States of America/Pennsylvania,333.19
+US-RI,North America/United States of America/Rhode Island,395.27
+US-SC,North America/United States of America/South Carolina,245.48
+US-SD,North America/United States of America/South Dakota,162.69
+US-TN,North America/United States of America/Tennessee,272.89
+US-TX,North America/United States of America/Texas,409.16
+US-UT,North America/United States of America/Utah,747.82
+US-VA,North America/United States of America/Virginia,308.0
+US-VT,North America/United States of America/Vermont,14.45
+US-WA,North America/United States of America/Washington,101.84
+US-WI,North America/United States of America/Wisconsin,569.39
+US-WV,North America/United States of America/West Virginia,919.34
+US-WY,North America/United States of America/Wyoming,950.5
+AU,Oceania/Australia/Any,840.0
+AU-ACT,Oceania/Australia/Australian Capital Territory,870.0
+AU-NSW,Oceania/Australia/New South Wales,870.0
+AU-NT,Oceania/Australia/Northern Territory,620.0
+AU-NT2,Oceania/Australia/Northern Territory (Darwin Katherine Interconnected System),540.0
+AU-QLD,Oceania/Australia/Queensland,920.0
+AU-SA,Oceania/Australia/South Australia,420.0
+AU-TAS,Oceania/Australia/Tasmania,180.0
+AU-VIC,Oceania/Australia/Victoria,1060.0
+AU-WA1,Oceania/Australia/Western Australia (North Western Interconnected System),580.0
+AU-WA2,Oceania/Australia/Western Australia (South West Interconnected System),700.0
+NZ,Oceania/New Zealand/Any,110.1
+AR,South America/Argentina/Any,307.0
+BR,South America/Brazil/Any,61.7
+UY,South America/Uruguay/Any,129.0
