@@ -8,6 +8,23 @@
 "use client";
 import React, { useState } from "react";
 
+const AlgoInfo = ({ title, description, value, onChange }) => {
+  return (
+    <div className="p-3 rounded-xl h-[90px]">
+      <div className="py-1 font-semibold rounded-xl flex-start">{title}</div>
+      <div className="flex items-center justify-start px-3 py-1 bg-neutral-300 rounded-2xl">
+        <input
+          className="w-full all-initial"
+          type="number"
+          value={value}
+          onChange={onChange}
+          placeholder={description}
+        />
+      </div>
+    </div>
+  );
+};
+
 const AlgoConst = () => {
   const [pue, setPue] = useState(1.67);
   const [pse, setPse] = useState(1);
@@ -30,44 +47,34 @@ const AlgoConst = () => {
   };
 
   return (
-    <div className="bg-gray-200">
+    <div className="bg-gray-100">
       <form action="">
-        <div>
-          {/* Power Usage Effectiveness */}
-          <div>Power Usage Effectiveness</div>
-          <input
-            type="number"
-            placeholder="1.67"
-            id="PUE"
-            value={pue}
-            onChange={handlePueChange}
-          />
+        <AlgoInfo
+          title="Power Usage Effectiveness"
+          description="1.67"
+          value={pue}
+          onChange={handlePueChange}
+        />
+        <AlgoInfo
+          title="Pragmatic Scaling Factor"
+          description="1"
+          value={pse}
+          onChange={handlePseChange}
+        />
+        <AlgoInfo
+          title="CPU Usage Factor"
+          description="1"
+          value={cpu}
+          onChange={handleCpuChange}
+        />
+        <div className="py-5 flex-center">
+          <button
+            type="submit"
+            onClick={saveButton}
+            className="px-16 py-2 text-white rounded-3xl bg-primary-green flex-center">
+            Save
+          </button>
         </div>
-        <div>
-          {/* Pragmatic Scaling Factor */}
-          <div>Pragmatic Scaling Factor</div>
-          <input
-            type="number"
-            placeholder="1"
-            id="PSE"
-            value={pse}
-            onChange={handlePseChange}
-          />
-        </div>
-        <div>
-          {/* CPU Usage Factor */}
-          <div>CPU Usage Factor</div>
-          <input
-            type="number"
-            placeholder="1"
-            id="usageCPU"
-            value={cpu}
-            onChange={handleCpuChange}
-          />
-        </div>
-        <button type="submit" onClick={saveButton}>
-          save
-        </button>
       </form>
     </div>
   );
