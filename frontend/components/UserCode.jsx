@@ -1,23 +1,24 @@
 //monaco-editor
 //
-"use client"
-import { useState, useRef } from 'react'
-import Editor from "@monaco-editor/react"
-import axios from 'axios';
-import { get } from 'mongoose';
+"use client";
+import { useState, useRef } from "react";
+import Editor from "@monaco-editor/react";
+import axios from "axios";
+import { get } from "mongoose";
 
 const files = {
   "index.java": {
     name: "index.java",
     language: "java",
-    value: "public static void main(String[] args) {\n\tSystem.out.println(\"Hello World!\");\n}"
-  }
-}
+    value:
+      'public static void main(String[] args) {\n\tSystem.out.println("Hello World!");\n}',
+  },
+};
 
 function UserCode() {
   const [fileName, setFileName] = useState("index.java"); // change to "index.html"
   const [loading, setLoading] = useState(false); // change to true
-  const [data, setData] = useState([]); 
+  const [data, setData] = useState([]);
   const editorRef = useRef(null);
   const file = files[fileName];
   // files["script.py"] -> file -> name, language, value -> pass those to the editor
@@ -35,35 +36,35 @@ function UserCode() {
     editorRef.current = editor;
   }
 
-//axios post 이용해서 서버로 코드 전송
-//예시로 localhost:5000으로 일단 설정
+  //axios post 이용해서 서버로 코드 전송
+  //예시로 localhost:5000으로 일단 설정
   async function postData() {
-    try{
-      const response = await axios.post('http://localhost:5000/', {
-        code : editorRef.current.getValue()
-      }).then((response) => {
-        console.log(response.data);
-        axios.get('http://localhost:5000/').then((getResponse) => {
-          setLoading(false);
-          console.log(getResponse.data);
+    try {
+      const response = await axios
+        .post("http://localhost:5000/", {
+          code: editorRef.current.getValue(),
+        })
+        .then((response) => {
+          console.log(response.data);
+          axios.get("http://localhost:5000/").then((getResponse) => {
+            setLoading(false);
+            console.log(getResponse.data);
+          });
         });
-      });
       console.log(response.data);
-    }catch{
+    } catch {
       console.log("error");
     }
   }
-
 
   // front 확인용
   function getEditorValue() {
     alert(editorRef.current.getValue());
     postData();
-
   }
 
   return (
-    <div className='w-full flex-col justify-center'>
+    <div className="flex-col justify-center w-full">
       <Editor
         height="40vh"
         width="100%"
@@ -75,13 +76,16 @@ function UserCode() {
       />
       <div className="flex justify-end border-black-1 space-between">
         {/* <Runntime /> */}
-        <span id="runtime" className='text-black'></span>
-        <button className="rounded bg-primary-green w-[5%] text-white" id="compile-btn" onClick={getEditorValue}>
+        <span id="runtime" className="text-black"></span>
+        <button
+          className="rounded bg-primary-green w-[5%] text-white"
+          id="compile-btn"
+          onClick={getEditorValue}>
           Run
         </button>
       </div>
     </div>
-  )
+  );
 }
 
-export default UserCode
+export default UserCode;
