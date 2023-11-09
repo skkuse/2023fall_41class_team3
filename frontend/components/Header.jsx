@@ -10,7 +10,7 @@ const Header = () => {
     <div className="relative w-full">
       {/* nav-bar 진녹색 투명 설정 */}
       <div id="nav-bar" className="z-20 top-0 w-full bg-primary-green/80 h-[10%] absolute">
-        <Link href="/" className="flex justify-center m-1 item-center">
+        <Link href="/" className="flex justify-center m-1 item-center content-center">
           <Image
             src="/assets/icons/logo.svg"
             alt="CodEco 로고"
