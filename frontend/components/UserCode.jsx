@@ -31,8 +31,22 @@ function UserCode() {
     editorRef.current = editor;
   }
 
+
+  async function postData() {
+    try{
+      const response = await axios.post('http://localhost:5000/', {
+        code : editorRef.current.getValue()
+      });
+      console.log(response.data);
+    }catch{
+      console.log("error")
+    }
+  }
+
   function getEditorValue() {
     alert(editorRef.current.getValue());
+    postData();
+
   }
 
   return (
@@ -40,7 +54,7 @@ function UserCode() {
       <Editor
         height="40vh"
         width="100%"
-        theme="vs-dark"
+        theme="vs"
         onMount={handleEditorDidMount}
         path={file.name}
         defaultLanguage={file.language}
