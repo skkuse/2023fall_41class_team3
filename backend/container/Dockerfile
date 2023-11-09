@@ -10,5 +10,4 @@ WORKDIR /app
 
 CMD ["bash", "-c",\
     "javac Main.java &&\
-    { time java Main ; } >> execution_results.txt 2>> execution_results.txt &&\
-    cat /sys/fs/cgroup/cpu.stat >> execution_results.txt"]
+    { time java Main ; } >> execution_results.txt 2>> execution_results.txt"]
