@@ -16,7 +16,8 @@ flush privileges;<br/>
 <br/>
 
 ### 가상환경 생성
-cd backend <br/>
+
+cd db <br/>
 sudo apt install python3.9-venv<br/>
 python3 -m venv venv<br/>
 source venv/bin/activate<br/>
