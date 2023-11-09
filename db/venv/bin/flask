@@ -1,4 +1,4 @@
-#!/home/jaeung/skkuse_team3/db/venv/bin/python3
+#!/Users/sonah/sonah-git/2023fall_41class_team3/db/venv/bin/python3.11
 # -*- coding: utf-8 -*-
 import re
 import sys
