@@ -1,9 +1,14 @@
 import pathlib
 import subprocess
+from typing import Dict
+
+import yaml
+
+__all__ = ["setup_docker", "get_server_information"]
 
 
-def setup_app(container_path: pathlib.Path) -> int:
-    """Initialize essential tools for running the server
+def setup_docker(container_path: pathlib.Path) -> int:
+    """Set up docker for running the server
 
     Args:
         continer_path (pathlib.Pah): Path to the docker container path
@@ -22,6 +27,23 @@ def setup_app(container_path: pathlib.Path) -> int:
         return 0
 
     try:
+        is_image_built = (
+            subprocess.check_output(
+                "docker inspect --type=image ecoder:latest",
+                shell=True,
+            )
+            .decode()
+            .find("Error")
+            == -1
+        )
+
+    except Exception as e:
+        is_image_built = False
+
+    if is_image_built:
+        return 1
+
+    try:
         image_build_info = subprocess.check_output(
             f"docker build -t ecoder:latest {container_path}", shell=True
         )
@@ -32,3 +54,10 @@ def setup_app(container_path: pathlib.Path) -> int:
         return 0
 
     return 1
+
+
+def get_server_information(config_file: pathlib.Path) -> Dict:
+    with open(config_file, "r") as f:
+        data = yaml.safe_load(f)
+
+    return data
