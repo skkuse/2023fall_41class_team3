@@ -1,74 +1,77 @@
  # 2023fall_41class_team3
-## Branch
 
-브랜치는 `main`, `develop`, `feature`, `hotfix` 4개를 운영한다.
+ ## DB setting
+ MySQL 버전: 8.0.34
 
-### Main branch
+ ### MySQL 실행
+ sudo mysql<br/>
+ 또는<br/>
+ sudo /etc/init.d/mysql restart (실행 안될 경우)<br/>
 
-`main` 브랜치는 출시를 위한 브랜치이다.
-이 브랜치를 이용하여 서버에 코드를 업로드한다. 업데이트가 생기면 서버에서 `git pull`해서 사용한다.
-`main` 브랜치는 서버에 업로드 된 코드와 항상 같도록 유지한다. 서버의 코드는 직접 수정하지 않는다.
-문제가 발견될 경우 `hotfix` 브랜치를 만들어 수정한다.
+### database 생성 및 유저 권한 부여
+create database codeco; <br/>
+create user 'admin'@'localhost' identified by 'password'; // password는 사용할 비밀번호로 변경<br/>
+grant all privileges on codeco.* to 'admin'@'localhost';<br/>
+flush privileges;<br/>
+<br/>
 
-### Develop branch
+### 가상환경 생성
 
-개발에 사용하는 메인 브랜치이다. 기능을 개발할 때는 feature로 브랜치를 따서 개발한 뒤 develop 브랜치에 merge한다.
-기능 개발 외의 수정이 이루어지는 경우(DB 스키마 변경, config 수정, README 업데이트, 구조 변경, 리팩토링 등) develop 브랜치에서 작업한다.
+cd db <br/>
+sudo apt install python3.9-venv<br/>
+python3 -m venv venv<br/>
+source venv/bin/activate<br/>
 
-### Feature branch
+### mysql 연결 및 orm에 필요한 라이브러리 설치
+pip install flask flask-sqlalchemy flask-migrate python-dotenv pymysql<br/>
+pip install python-dotenv // 보안 설정(.env파일)<br/>
 
-기능을 개발하는 브랜치이다. `develop` 브랜치에서 분기하여 사용한다. 브랜치명은 `feature/~`로 한다.
-개발이 완료되면 `develop` 브랜치에 병합(merge)하고, 브랜치를 삭제한다.
+### .env configuration
+.env파일 생성 및 작성 (각자 환경에 맞게 변경)<br/>
+<br/>
+FLASK_APP=run.py<br/>
+FLASK_ENV=development<br/>
+DB_USER=admin<br/>
+DB_PASSWORD=password<br/>
+DB_HOST=localhost<br/>
+DB_PORT=3306<br/>
+DB_NAME=codeco<br/>
 
-### Hotfix branch
+### 마이그레이션 설정
+flask db init // 초기화<br/>
+flask db migrate -m "Initial migration." //마이그레이션 파일 생성<br/>
+flask db upgrade // 데이터베이스에 마이그레이션 적용<br/>
+<br/>
 
-출시된 코드(서버에 업로드된 코드)에 문제가 있을 경우 `hotfix` 브랜치를 만들어 수정한다.
-`hotfix` 브랜치는 `main` 브랜치에서 분기하고, 수정이 끝난 뒤에는 `main` 브랜치와 `develop` 브랜치에 병합(merge)한다.
+### DB schema 수정 시
+flask db migrate <br/>
+flask db upgrade <br/>
 
-## Commit Message
+### 서버 실행
+flask run
 
-### Message Structure
+### API test
+1. 코드 제출 테스트 <br/>
+curl -X POST http://127.0.0.1:5000/submit_code \
+     -H "Content-Type: application/json" \
+     -d '{"refactoring_status": false, "code": "public class Main { public static void main(String[] args) { System.out.println(\"Hello, World!\"); } }"}'
 
-커밋 메시지에는 제목과 본문(body)을 작성하고, 제목에는 작업 형태(type)를 표시한다. `type` 외에는 한글로 작성한다.
+=> {"code":"public class Main { public static void main(String[] args) { System.out.println(\"Hello, World!\"); } }","refactoring_status":false,"submission_date":"2023-11-09","submission_id":1}
 
-```
-type: Subject
+2. 리팩토링 통계 제출 테스트<br/>
+curl -X POST http://127.0.0.1:5000/submit_reduction \
+     -H "Content-Type: application/json" \
+     -d '{"reduction_amount": 5.25}'
 
-body
-```
+=> {"reduction_amount":5.25,"refactoring_date":"Thu, 09 Nov 2023 00:00:00 GMT","static_id":1}
 
-`body` 작성을 위해 `git commit`을 사용한다. (`-m` 옵션 제외)
+curl -X POST http://127.0.0.1:5000/submit_reduction \
+     -H "Content-Type: application/json" \
+     -d '{"reduction_amount": 1.5}'
 
-### Type
+=> {"reduction_amount":1.5,"refactoring_date":"Thu, 09 Nov 2023 00:00:00 GMT","static_id":2}
 
--   feat: 새로운 기능 추가
--   fix: 에러 수정
--   docs: docs 수정(README나 swagger)
--   style: 코드 변경 없이 포맷팅
--   refactor: 기능 변경 없이 리팩토링
--   test: 테스트 추가 및 수정
--   chore: production code와 관련 없는 기타 잡일
+3. 총 탄소배출 절감량 계산 테스트 <br/>
+curl -X GET http://127.0.0.1:5000/total_reduction
 
-### Body
-
-'무엇을'과 '왜'에 대해 상세히 작성한다.
-
-# Naming
-
-## 파일명
-
-파일명은 소문자에 `-`를 이용하여 단어 구분
-# Database
-
-## local DB 연결
-
-프로젝트 최상위 폴더에 `.env` 파일을 만들고 필요한 정보를 입력한다. 변수 이름은 아래와 같이 지정한다.
-
--   DB_HOST
--   DB_PORT
--   DB_USERNAME
--   DB_PASSWORD
--   DB_DATABASE
-
-### Version
-MySQL: 8.0.34
+=> {"total_reduction":6.75}
