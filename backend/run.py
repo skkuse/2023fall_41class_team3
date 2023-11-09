@@ -44,13 +44,13 @@ def run_code(code: str, session_id: UUID, server_information: Dict, pwd: str) ->
     energy_needed = calculate_energy_needed(
         results["runtime_real"],
         server_information["CORE_POWER"],
-        results["cpu_usage"],
+        cpu_usage,
         server_information["MEMORY_POWER"],
         server_information["PUE"],
         server_information["PSF"],
     )
     carbon_footprint = calculate_carbon_footprint(
-        results["energy_needed"], server_information["CI"]
+        energy_needed, server_information["CI"]
     )
 
     return {

@@ -16,14 +16,14 @@ def create_app():
 
     server_information = get_server_information(Path("./server_config.yaml"))
 
-    @app.post("/api/runtime")
+    @app.post("/api/submit_code")
     def runtime():
         session_id = uuid.uuid4()
 
         request_body = request.get_json()
         code = request_body["code"]
 
-        return run_code(code, session_id, os.getcwd())
+        return run_code(code, session_id, server_information, os.getcwd())
 
     @app.post("/api/refactor")
     def refactor():
