@@ -50,4 +50,27 @@ flask db upgrade <br/>
 flask run
 
 ### api test
-curl -X POST -H "Content-Type: application/json" -d '{"username": "newuser", "email": "newuser@example.com"}' http://localhost:5000/user/add
+1. 코드 제출 테스트
+curl -X POST http://127.0.0.1:5000/submit_code \
+     -H "Content-Type: application/json" \
+     -d '{"refactoring_status": false, "code": "public class Main { public static void main(String[] args) { System.out.println(\"Hello, World!\"); } }"}'
+
+=> {"code":"public class Main { public static void main(String[] args) { System.out.println(\"Hello, World!\"); } }","refactoring_status":false,"submission_date":"2023-11-09","submission_id":1}
+
+2. 리팩토링 통계 제출 테스트
+curl -X POST http://127.0.0.1:5000/submit_reduction \
+     -H "Content-Type: application/json" \
+     -d '{"reduction_amount": 5.25}'
+
+=> {"reduction_amount":5.25,"refactoring_date":"Thu, 09 Nov 2023 00:00:00 GMT","static_id":1}
+
+curl -X POST http://127.0.0.1:5000/submit_reduction \
+     -H "Content-Type: application/json" \
+     -d '{"reduction_amount": 1.5}'
+
+=> {"reduction_amount":1.5,"refactoring_date":"Thu, 09 Nov 2023 00:00:00 GMT","static_id":2}
+
+3. 총 탄소배출 절감량 계산 테스트
+curl -X GET http://127.0.0.1:5000/total_reduction
+
+=> {"total_reduction":6.75}

@@ -1,46 +1,44 @@
-from flask import render_template, request, redirect, url_for, flash, jsonify
+# app/routes.py
+from flask import request, jsonify
 from app import app, db
-from app.models import User
+from app.models import CodeSubmission, RefactoringStatistics
+from datetime import datetime
+
 @app.route('/')
 def index():
     return "Welcome to the homepage!"
 
-@app.route('/users')
-def users():
-    all_users = User.query.all()
-    return jsonify(users=[user.serialize for user in all_users])
+@app.route('/submit_code', methods=['POST'])
+def submit_code():
+    data = request.json
+    code = data.get('code','')
 
-@app.route('/user/<int:id>')
-def user_detail(id):
-    user = User.query.get_or_404(id)
-    return jsonify(user=user.serialize)
-
-@app.route('/user/add', methods=['POST'])
-def add_user():
-    data = request.get_json()
-    if not data or not 'username' in data or not 'email' in data:
-        return jsonify(message="Invalid data"), 400
-    new_user = User(username=data['username'], email=data['email'])
-    db.session.add(new_user)
+    new_submission = CodeSubmission(
+        submission_date=data.get('submission_date', datetime.utcnow()),
+        refactoring_status=data.get('refactoring_status', False)
+    )
+    db.session.add(new_submission)
     db.session.commit()
-    return jsonify(message='User added successfully!')
+    return jsonify({
+        'submission_id': new_submission.submission_id,
+        'submission_date': new_submission.submission_date.isoformat(),
+        'refactoring_status': new_submission.refactoring_status,
+        'code': code # DB에 저장하지 않은 코드 내용 포함
+    }), 201
 
-@app.route('/user/edit/<int:id>', methods=['POST'])
-def edit_user(id):
-    user = User.query.get_or_404(id)
-    data = request.get_json()
-    if not data:
-        return jsonify(message="Invalid data"), 400
-    if 'username' in data:
-        user.username = data['username']
-    if 'email' in data:
-        user.email = data['email']
+@app.route('/submit_reduction', methods=['POST'])
+def submit_reduction():
+    data = request.json
+    new_statistic = RefactoringStatistics(
+        refactoring_date=data.get('refactoring_date', datetime.utcnow()),
+        reduction_amount=data.get('reduction_amount')
+    )
+    db.session.add(new_statistic)
     db.session.commit()
-    return jsonify(message='User updated successfully!')
+    return jsonify(new_statistic.to_json()), 201
 
-@app.route('/user/delete/<int:id>', methods=['DELETE'])
-def delete_user(id):
-    user = User.query.get_or_404(id)
-    db.session.delete(user)
-    db.session.commit()
-    return jsonify(message='User deleted successfully!')
+@app.route('/total_reduction', methods=['GET'])
+def total_reduction():
+    total = db.session.query(db.func.sum(RefactoringStatistics.reduction_amount)).scalar() or 0
+    return jsonify({'total_reduction': total}), 200
+
