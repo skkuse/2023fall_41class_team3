@@ -6,7 +6,7 @@ from typing import Dict, List
 from uuid import UUID
 
 
-def run_code(code: str, session_id: UUID, pwd: str) -> Dict:
+def run_code(code: str, session_id: UUID, server_information: Dict, pwd: str) -> Dict:
     """Execute the given code and return the execution results
 
     Executed the given code and execute it in a separate containerized
@@ -16,6 +16,8 @@ def run_code(code: str, session_id: UUID, pwd: str) -> Dict:
     Args:
         code (str): The user given code.
         session_id (uuid.UUID): The session_id of the code to be executed.
+        server_information (Dict): Dictionary of values containing constants for
+            carbon footprint calculation.
         pwd (str): The working directory of the main function.
 
     Returns:
@@ -35,10 +37,28 @@ def run_code(code: str, session_id: UUID, pwd: str) -> Dict:
 
     _clean_up(session_id, pwd)
 
-    if results["success"]:
-        pass
+    if results["success"] == False:
+        return results
 
-    return results
+    cpu_usage = min(results["runtime_user"] / results["runtime_real"], 1.0)
+    energy_needed = calculate_energy_needed(
+        results["runtime_real"],
+        server_information["CORE_POWER"],
+        results["cpu_usage"],
+        server_information["MEMORY_POWER"],
+        server_information["PUE"],
+        server_information["PSF"],
+    )
+    carbon_footprint = calculate_carbon_footprint(
+        results["energy_needed"], server_information["CI"]
+    )
+
+    return {
+        **results,
+        "cpu_usage": cpu_usage,
+        "energy_needed": energy_needed,
+        "carbon_footprint": carbon_footprint,
+    }
 
 
 def _copy_code(code: str, session_id: UUID, pwd: str) -> None:
@@ -149,3 +169,18 @@ def parse_time(times: List[str]) -> Dict[str, float]:
         "runtime_user": result_times[1],
         "runtime_sys": result_times[2],
     }
+
+
+def calculate_energy_needed(
+    runtime: float,
+    core_power_draw: float,
+    usage: float,
+    memory_power_draw: float,
+    PUE: float,
+    PSF: float,
+) -> float:
+    return runtime * (core_power_draw * usage + memory_power_draw) * PUE * PSF
+
+
+def calculate_carbon_footprint(energy_needed: float, carbon_intensity: float) -> float:
+    return energy_needed * carbon_intensity
