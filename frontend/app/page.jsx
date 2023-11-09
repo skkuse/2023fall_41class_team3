@@ -13,13 +13,13 @@ const Home = () => {
         <div className="p-10 flex-center">
           <UserCode />
         </div>
-        <div className="flex flex-row justify-center gap-6">
-          <div>
+        <div className="flex flex-row justify-center gap-6 mx-9 flex-center">
+          <div className="w-1/3">
             <AlgoConst />
             <ServerEviornments />
             <Runtime />
           </div>
-          <div>
+          <div className="w-2/3">
             <FootPrintResult />
           </div>
         </div>
