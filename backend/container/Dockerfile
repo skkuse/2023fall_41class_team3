@@ -8,10 +8,7 @@ ENV PATH="${JAVA_HOME}/bin:${PATH}"
 
 WORKDIR /app
 
-COPY ./Main.java /app
-
-RUN javac Main.java
-
 CMD ["bash", "-c",\
-    "{ time java Main ; } >> exec_results.txt 2>> exec_results.txt &&\
-    cat /sys/fs/cgroup/cpu.stat >> exec_results.txt"]
+    "javac Main.java &&\
+    { time java Main ; } >> execution_results.txt 2>> execution_results.txt &&\
+    cat /sys/fs/cgroup/cpu.stat >> execution_results.txt"]
