@@ -17,8 +17,6 @@ const files = {
 
 function UserCode() {
   const [fileName, setFileName] = useState("index.java"); // change to "index.html"
-  const [loading, setLoading] = useState(false); // change to true
-  const [data, setData] = useState([]);
   const editorRef = useRef(null);
   const file = files[fileName];
   // files["script.py"] -> file -> name, language, value -> pass those to the editor
@@ -36,28 +34,17 @@ function UserCode() {
     editorRef.current = editor;
   }
 
-  //axios post 이용해서 서버로 코드 전송
-  //예시로 localhost:5000으로 일단 설정
   async function postData() {
     try {
-      const response = await axios
-        .post("http://localhost:5000/", {
-          code: editorRef.current.getValue(),
-        })
-        .then((response) => {
-          console.log(response.data);
-          axios.get("http://localhost:5000/").then((getResponse) => {
-            setLoading(false);
-            console.log(getResponse.data);
-          });
-        });
+      const response = await axios.post("http://localhost:5000/", {
+        code: editorRef.current.getValue(),
+      });
       console.log(response.data);
     } catch {
       console.log("error");
     }
   }
 
-  // front 확인용
   function getEditorValue() {
     alert(editorRef.current.getValue());
     postData();
@@ -76,12 +63,8 @@ function UserCode() {
       />
       <div className="flex justify-end border-black-1 space-between">
         {/* <Runntime /> */}
-        <span id="runtime" className="text-black"></span>
-        <button
-          className="rounded bg-primary-green w-[5%] text-white"
-          id="compile-btn"
-          onClick={getEditorValue}>
-          Run
+        <button className="" id="compile-btn" onClick={() => getEditorValue()}>
+          Get Editor Value
         </button>
       </div>
     </div>
