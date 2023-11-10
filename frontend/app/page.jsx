@@ -14,7 +14,7 @@ const Home = () => {
         <div className="p-10 flex-center">
           <UserCode />
         </div>
-        <div className="grid justify-center mx-9 flex-center">
+        <div className="flex flex-row gap-5 mx-9">
           <div className="grid w-1/3 gap-6">
             <AlgoConst />
             <ServerEviornments />
