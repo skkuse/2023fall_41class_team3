@@ -72,7 +72,7 @@ def get_server_information(config_file: pathlib.Path) -> Dict:
 
 def get_PUE(config_data: Dict) -> float:
     provider = config_data["provider"]
-    df_PUE = pd.read_csv("./constants/pue.csv")
+    df_PUE = pd.read_csv("./data/pue.csv")
     if provider not in df_PUE["provider"].values:
         print("Location does not exist! Defaulting to Unknown...")
         provider = "Unknown"
@@ -86,7 +86,7 @@ def get_PSF(config_data: Dict) -> float:
 
 def get_CI(config_data: Dict) -> float:
     location = config_data["location"]
-    df_CI = pd.read_csv("./constants/carbon_intensity.csv")
+    df_CI = pd.read_csv("./data/carbon_intensity.csv")
     if location not in df_CI["area_code"].values:
         print("Location does not exist! Defaulting to WORLD...")
         location = "WORLD"
@@ -96,7 +96,7 @@ def get_CI(config_data: Dict) -> float:
 
 def get_CORE_POWER(config_data: Dict) -> float:
     model = config_data["cpu_model"]
-    df_CPU_TDP = pd.read_csv("./constants/cpu_tdp.csv")
+    df_CPU_TDP = pd.read_csv("./data/cpu_tdp.csv")
     if model not in df_CPU_TDP["model"].values:
         print("Model does not exist! Defaulting to DEFAULT...")
         model = "DEFAULT"
