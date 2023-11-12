@@ -5,6 +5,8 @@ from multiprocessing import Process
 from typing import Dict, List
 from uuid import UUID
 
+import utils
+
 
 def run_code(code: str, session_id: UUID, server_information: Dict, pwd: str) -> Dict:
     """Execute the given code and return the execution results
@@ -41,15 +43,15 @@ def run_code(code: str, session_id: UUID, server_information: Dict, pwd: str) ->
         return results
 
     cpu_usage = min(results["runtime_user"] / results["runtime_real"], 1.0)
-    energy_needed = calculate_energy_needed(
-        results["runtime_real"],
+    energy_needed = utils.calculate_energy_needed(
+        results["runtime_real"] / 3600,
         server_information["CORE_POWER"],
         cpu_usage,
         server_information["MEMORY_POWER"],
         server_information["PUE"],
         server_information["PSF"],
     )
-    carbon_footprint = calculate_carbon_footprint(
+    carbon_footprint = utils.calculate_carbon_footprint(
         energy_needed, server_information["CI"]
     )
 
@@ -169,18 +171,3 @@ def parse_time(times: List[str]) -> Dict[str, float]:
         "runtime_user": result_times[1],
         "runtime_sys": result_times[2],
     }
-
-
-def calculate_energy_needed(
-    runtime: float,
-    core_power_draw: float,
-    usage: float,
-    memory_power_draw: float,
-    PUE: float,
-    PSF: float,
-) -> float:
-    return runtime * (core_power_draw * usage + memory_power_draw) * PUE * PSF
-
-
-def calculate_carbon_footprint(energy_needed: float, carbon_intensity: float) -> float:
-    return energy_needed * carbon_intensity
