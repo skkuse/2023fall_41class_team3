@@ -29,8 +29,15 @@ def refactor_java():
     prompt=prompt,
     max_tokens=1024)
 
-    # 리팩토링된 코드만 추출
-    refactored_code = response.choices[0].text.strip()
+    # 전체 리팩토링된 코드
+    full_refactored_code = response.choices[0].text.strip()
+
+    # "public" 단어부터 시작하는 리팩토링된 코드 추출
+    start_index = full_refactored_code.find("public")
+    if start_index != -1:
+        refactored_code = full_refactored_code[start_index:]
+    else:
+        refactored_code = "Refactored code not found."
 
     # 결과 반환
     return jsonify({"refactored_code": refactored_code})

@@ -9,6 +9,9 @@ pip install openai<br/>
 openai migrate<br/>
 pip install python-dotenv<br/>
 
+# .env파일 생성
+refactoring폴더 -> .env
+
 # TEST
 python3 app.py
 
