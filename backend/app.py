@@ -1,12 +1,18 @@
 from pathlib import Path
 
 from api import construct_blueprint as api
+from celery import Celery
 from config import Config
+from db import db
 from flask import Flask
 from flask_migrate import Migrate
 from utils import get_server_information, setup_docker
 
-from db import db
+celery = Celery(
+    __name__,
+    backend=Config.CELERY["CELERY_RESULT_BACKEND"],
+    broker=Config.CELERY["CELERY_BROKER_URL"],
+)
 
 
 def create_app():
