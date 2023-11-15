@@ -5,16 +5,22 @@ from db import db
 
 class CodeSubmission(db.Model):
     submission_id = db.Column(db.String(100), primary_key=True)
-    submission_date = db.Column(db.Date, nullable=False, default=datetime.utcnow)
+    submission_date = db.Column(db.Time, nullable=False, default=datetime.utcnow)
+    status = db.Column(db.String(50), nullable=False)
+    code = db.Column(db.Text)
 
-    def __init__(self, submission_id):
+    def __init__(self, submission_id, status, code):
         self.submission_id = submission_id
         self.submission_date = datetime.utcnow()
+        self.status = status
+        self.code = code
 
     def to_json(self):
         return {
             "submission_id": self.submission_id,
             "submission_date": self.submission_date.isoformat(),
+            "status": self.status,
+            "code": self.code,
         }
 
     def __repr__(self):
