@@ -8,7 +8,7 @@ const Results = ({ resultsData }) => {
     console.log(resultsData);
   }, [resultsData]);
 
-  const [resultBtnState, setResultBtnState] = useState(true); // true면 FootPrint, false면 Refactoring
+  const [resultBtnState, setResultBtnState] = useState(false); // true면 FootPrint, false면 Refactoring
 
   function handleFootPrintBtn() {
     setResultBtnState(true);
@@ -26,8 +26,8 @@ const Results = ({ resultsData }) => {
     : "bg-primary-green";
 
   return (
-    <div>
-      <div className="flex flex-row justify-end gap-2">
+    <div className="h-full">
+      <div className="flex justify-end gap-2">
         <button
           className={`w-[20%] font-bold rounded-t text-white p-2 ${footPrintBtnClassName}`}
           onClick={handleFootPrintBtn}>
@@ -39,11 +39,13 @@ const Results = ({ resultsData }) => {
           Refactoring
         </button>
       </div>
-      {resultBtnState ? (
-        <FootPrintResult resultsData={resultsData} />
-      ) : (
-        <Refactoring />
-      )}
+      <div className="h-full">
+        {resultBtnState ? (
+          <FootPrintResult resultsData={resultsData} />
+        ) : (
+          <Refactoring />
+        )}
+      </div>
     </div>
   );
 };
