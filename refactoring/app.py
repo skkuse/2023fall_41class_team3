@@ -1,7 +1,11 @@
 from flask import Flask, request, jsonify
 from openai import OpenAI
+from dotenv import load_dotenv
+import os
 
-client = OpenAI(api_key='YOUR-API-KEY') # API KEY 문의: 이재웅
+load_dotenv()
+
+client = OpenAI(api_key=os.getenv('OPENAI_API_KEY'))
 
 app = Flask(__name__)
 
@@ -17,7 +21,7 @@ def refactor_java():
     # 코드 리팩토링을 위한 프롬프트 생성 (메모리와 성능 관점에서 리팩토링, 코드만 보여주기)
     prompt = f"Here is a Java code snippet:\n{java_code}\n\n\
         Identify any inefficiencies and refactor the code to optimize for memory usage and performance. \
-        Please show only the refactored code in the answer, excluding additional explanations, 
+        Please show only the refactored code in the answer, excluding additional explanations, \
         and the code should start with the public class Main and show the entire code"
 
     # OpenAI API를 사용하여 코드 리팩토링 (GPT-3.5 모델 사용)
