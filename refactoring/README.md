@@ -11,6 +11,7 @@ pip install python-dotenv<br/>
 
 # .env파일 생성
 refactoring폴더 -> .env
+OPENAI_API_KEY=API_KEY
 
 # TEST
 python3 app.py
