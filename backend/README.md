@@ -14,6 +14,16 @@ pip install -r requirements.txt
 mysql.server start
 ```
 
+## Run Docker container for Redis
+```bash
+docker run -p 6379:6379 --name redis-server redis
+```
+
+## Run Docker container for RabbitMQ
+```bash
+docker run -p 8080:15672 -p 5672:5672 --name rabbitmq-server rabbitmq
+```
+
 ## Run SQL initialization script
 ```sql
 CREATE DATABASE codeco;
@@ -43,6 +53,11 @@ flask db upgrade
 ## Run flask server
 ```bash
 flask run
+```
+
+## Run Celery
+```bash
+celery -A app.celery worker --loglevel INFO
 ```
 
 
