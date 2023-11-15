@@ -2,7 +2,6 @@
 import React, { useState, useEffect } from "react";
 import Refactoring from "./Refactoring";
 import FootPrintResult from "./FootPrintResult";
-import Refactoring from "./Refactoring";
 
 const Results = ({ resultsData }) => {
   useEffect(() => {
@@ -19,20 +18,32 @@ const Results = ({ resultsData }) => {
     setResultBtnState(false);
   }
 
-  const footPrintBtnClassName = resultBtnState ? "bg-primary-green" : "bg-gray-500 opacity-50";
-  const refactoringBtnClassName = resultBtnState ? "bg-gray-500 opacity-50" : "bg-primary-green";
+  const footPrintBtnClassName = resultBtnState
+    ? "bg-primary-green"
+    : "bg-gray-500 opacity-50";
+  const refactoringBtnClassName = resultBtnState
+    ? "bg-gray-500 opacity-50"
+    : "bg-primary-green";
 
   return (
     <div>
       <div className="flex flex-row justify-end gap-2">
-        <button className={`w-[20%] font-bold rounded-t text-white p-2 ${footPrintBtnClassName}`} onClick={handleFootPrintBtn}>
+        <button
+          className={`w-[20%] font-bold rounded-t text-white p-2 ${footPrintBtnClassName}`}
+          onClick={handleFootPrintBtn}>
           FootPrint
         </button>
-        <button className={`w-[20%] font-bold text-white p-2 ${refactoringBtnClassName}`} onClick={handleRefactoringBtn}>
+        <button
+          className={`w-[20%] font-bold text-white p-2 ${refactoringBtnClassName}`}
+          onClick={handleRefactoringBtn}>
           Refactoring
         </button>
       </div>
-      {resultBtnState ? <FootPrintResult resultsData={resultsData} /> : <Refactoring />}
+      {resultBtnState ? (
+        <FootPrintResult resultsData={resultsData} />
+      ) : (
+        <Refactoring />
+      )}
     </div>
   );
 };
