@@ -1,13 +1,13 @@
 
 # 가상환경 생성
-python3 -m venv myenv
-source myenv/bin/activate
+python3 -m venv myenv<br/>
+source myenv/bin/activate<br/>
 
 # Requirement
-pip install flask
-pip install openai
-openai migrate
-pip install python-dotenv
+pip install flask<br/>
+pip install openai<br/>
+openai migrate<br/>
+pip install python-dotenv<br/>
 
 # TEST
 python3 app.py
