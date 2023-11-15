@@ -1,6 +1,8 @@
+"use client";
 import React, { useState, useEffect } from "react";
 import Refactoring from "./Refactoring";
 import FootPrintResult from "./FootPrintResult";
+import Refactoring from "./Refactoring";
 
 const Results = ({ resultsData }) => {
   useEffect(() => {

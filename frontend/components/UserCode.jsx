@@ -4,6 +4,10 @@
 import { useState, useRef, useEffect } from "react";
 import Editor from "@monaco-editor/react";
 import axios from "axios";
+<<<<<<< HEAD
+=======
+// import { get } from "mongoose";
+>>>>>>> fa05a9bf8f4100e52d2fcf9702b1ed582231d846
 
 // const code_submit_url = 'http://
 const code_submit_url = 'http://127.0.0.1:5000/api/submit_code'; // 서버에 코드를 보내는 url (POST) (서버에서는 코드를 받아서 실행 후 결과를 반환)
