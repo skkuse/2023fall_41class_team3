@@ -27,13 +27,11 @@ def run_code(code: str, session_id: UUID, server_information: Dict, pwd: str) ->
     """
     _copy_code(code, session_id, pwd)
 
-    p = Process(target=_run_container, args=(session_id, pwd))
-    p.start()
-    p.join()
+    container_run_success = _run_container(session_id, pwd)
 
     results = (
         {"success": False}
-        if p.exitcode == 1
+        if container_run_success == 1
         else {"success": True, **_read_results(session_id, pwd)}
     )
 
@@ -88,7 +86,7 @@ def _copy_code(code: str, session_id: UUID, pwd: str) -> None:
     open(f"{pwd}/container/{str(session_id)}/execution_results.txt", "x")
 
 
-def _run_container(session_id: UUID, pwd: str) -> None:
+def _run_container(session_id: UUID, pwd: str) -> int:
     """Run the container
 
     The directory named by the session_id will be connected to a docker container
@@ -119,7 +117,9 @@ def _run_container(session_id: UUID, pwd: str) -> None:
 
     except Exception as e:
         print(f"Docker container run failed: {e}")
-        exit(1)
+        return 1
+
+    return 0
 
 
 def _read_results(session_id: UUID, pwd: str) -> Dict:
