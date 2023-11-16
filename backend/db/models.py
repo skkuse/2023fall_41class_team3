@@ -6,12 +6,14 @@ from db import db
 class SubmittedCode(db.Model):
     submission_id = db.Column(db.String(100), primary_key=True)
     submission_date = db.Column(db.Time, nullable=False, default=datetime.utcnow)
+    status = db.Column(db.String(32), nullable=False)
     code = db.Column(db.Text)
 
-    def __init__(self, submission_id, code):
+    def __init__(self, submission_id, code, status):
         self.submission_id = submission_id
         self.submission_date = datetime.utcnow()
         self.code = code
+        self.status = status
 
     def to_json(self):
         return {
