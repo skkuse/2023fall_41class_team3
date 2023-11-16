@@ -24,8 +24,7 @@ function UserCode({ updateResultsData }) {
   const [fileName, setFileName] = useState("index.java"); // change to "index.html"
   const [loading, setLoading] = useState(false); //현재 로딩 중인지 확인 (true : 로딩 중, false : 로딩 X)
   const [codeRuntime, setCodeRuntime] = useState("0"); //코드 실행 시간 (오류시 ERROR, 정상 실행시 실행 시간, 로딩 중일 때는 Running...)
-  const [codeRuntimeClassName, setCodeRuntimeClassName] =
-    useState("text-black"); //코드 실행 시간의 글자 색상 (오류시 빨간색, 정상 실행시 초록색, 로딩 중일 때는 파란색)
+  const [codeRuntimeClassName, setCodeRuntimeClassName] = useState("text-black"); //코드 실행 시간의 글자 색상 (오류시 빨간색, 정상 실행시 초록색, 로딩 중일 때는 파란색)
   const editorRef = useRef(null); //editorRef.current.getValue()를 통해 현재 에디터의 코드를 가져올 수 있음
   const file = files[fileName]; //fileName에 따라서 file을 변경
   useEffect(() => {
@@ -76,7 +75,7 @@ function UserCode({ updateResultsData }) {
             setErrorState();
           } else {
             setFinishState(response.data.runtime_real);
-            updateResultsData(response.data);
+            updateResultsData(response.data, editorRef.current.getValue());
             console.log(response.data);
           }
         })

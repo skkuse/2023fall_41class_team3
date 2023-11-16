@@ -32,17 +32,20 @@ const ResultInfo = ({ imgTitle, description, value, id, unit }) => {
 
 
 
-
-const FootPrintResult = ({resultsData}) => {
+const FootPrintResult = ({resultsData, userCode}) => {
+  //소수점 2째자리에서 자른다. backend를 통해서 얻은 정보
   const carbonFootprint= Number((resultsData?.carbon_footprint || 0.0).toFixed(2));
   const cpuUsage= Number((resultsData?.cpu_usage || 0.0).toFixed(2));
   const energyNeeded= Number((resultsData?.energy_needed || 0.0).toFixed(2));
-  const carbonFootprintDetailed = resultsData?.carbon_footprint || 0.0;
+
+
+  // backend에서 얻은 탄소 배출량을 바탕으로 계산한다.
+  const carbonFootprintDetailed = resultsData?.carbon_footprint || 0.0; //탄소 배출량 (내림 없는 버전)
   const tree_years = Math.floor(carbonFootprintDetailed / 11000);
   const plane_percent = Number((((carbonFootprintDetailed / 171)/1147000)*100).toFixed(2));
   const car_percent = Number((carbonFootprintDetailed / 175).toFixed(2));
   const netflix_hour = Number((carbonFootprintDetailed / 36).toFixed(2));
-
+  const code_submit_url = "http://127.0.0.1:5000/api/submit_code";
   const [carbonFootprintImage, setCarbonFootprintImage] = useState("/assets/icons/carbon-footprint.svg"); //탄소 발자국 이미지
   const [energyNeededImage, setEnergyNeededImage] = useState("/assets/icons/energy.svg"); //에너지 필요량 이미지
   const [cpuUsageImage, setCpuUsageImage] = useState("/assets/icons/co2_icon.svg");
@@ -51,6 +54,30 @@ const FootPrintResult = ({resultsData}) => {
   const [carImage, setCarImage] = useState("/assets/icons/car_icon.svg");
   const [airplaneImage, setAirplaneImage] = useState("/assets/icons/airplane_icon.svg"); //CPU 이미지로 변경 필요
 
+  async function postData() {
+    try {
+      // 서버에 보낼 데이터
+      const data = {
+        refactoring_status: true,
+        code: {userCode},
+      };
+  
+      // 서버에 POST 요청 보내기 axios 이용
+      const response = await axios
+        .post(code_submit_url, data)
+        .then(function (response) {
+          if (response.data.success === false) {
+          } else {
+            console.log(response.data);
+          }
+        })
+        .catch(function (error) {
+          console.log(error);
+        });
+    } catch (e) {
+      console.log(e);
+    }
+  }
 
   return (
     <div className="flex flex-col items-start justify-center gap-3 p-2 bg-surface">
@@ -107,14 +134,14 @@ const FootPrintResult = ({resultsData}) => {
           unit="hours"
         />
       </div>
-      <div className="py-5 flex-center">
+      {/* <div className="py-5 flex-center justify-center">
           <button
-            onClick={startRefactoring}
+            onClick={postData}
             className="px-16 py-2 text-white rounded-3xl bg-primary-green flex-center">
             Refactoring
           </button>
         </div>
-    </div>
+    </div> */}
   );
 };
 

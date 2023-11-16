@@ -22,9 +22,18 @@ const Home = () => {
     'carbon_footprint': 0.0
   });
 
+  const [codeData, setCodeData] = useState({
+    'bef_code': "", // UserCode에서 입력한 코드
+    'aft_code': "" // Refactoring에서 수정한 코드
+  });
+
   // UserCode에서 ResultsData 내용 변경 
-  const updateResultsData = (data) => {
+  const updateResultsData = (data,code) => {
     setResultsData(data);
+    setCodeData({
+      'bef_code': code,
+      'aft_code': ""
+    });
   };
 
   return (
@@ -41,7 +50,7 @@ const Home = () => {
           </div>
           <div className="w-2/3 flex-col">
             {/* resultsData내용을 전달*/}
-            <Results resultsData={resultsData} />
+            <Results resultsData={resultsData} codeData={codeData}/>
           </div>
         </div>
       </div>
