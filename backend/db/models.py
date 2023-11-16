@@ -3,28 +3,25 @@ from datetime import datetime
 from db import db
 
 
-class CodeSubmission(db.Model):
+class SubmittedCode(db.Model):
     submission_id = db.Column(db.String(100), primary_key=True)
     submission_date = db.Column(db.Time, nullable=False, default=datetime.utcnow)
-    status = db.Column(db.String(50), nullable=False)
     code = db.Column(db.Text)
 
-    def __init__(self, submission_id, status, code):
+    def __init__(self, submission_id, code):
         self.submission_id = submission_id
         self.submission_date = datetime.utcnow()
-        self.status = status
         self.code = code
 
     def to_json(self):
         return {
             "submission_id": self.submission_id,
             "submission_date": self.submission_date.isoformat(),
-            "status": self.status,
             "code": self.code,
         }
 
     def __repr__(self):
-        return f"<CodeSubmission {self.submission_id}>"
+        return f"[CODE SUBMISSION {self.submission_id} AT {self.submission_date}]"
 
 
 class RefactoringStatistics(db.Model):
