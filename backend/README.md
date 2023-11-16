@@ -4,8 +4,8 @@
 
 ## Create virtual environmnet and install packages
 ```bash
-conda create -n codeco python==3.11
-conda activate codeco
+python3 -m venv myenv
+source myenv/bin/activate
 pip install -r requirements.txt
 ```
 
