@@ -41,9 +41,7 @@ if setup_docker(container_path=Path("./container")) == 0:
 
 server_information = get_server_information(Path("./data/server_info.yaml"))
 
-app.register_blueprint(
-    routes.execution(db, server_information), url_prefix="/execution"
-)
+app.register_blueprint(routes.execution(server_information), url_prefix="/execution")
 app.register_blueprint(
     routes.refactor(server_information), url_prefix="/refactorization"
 )
