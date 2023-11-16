@@ -1,11 +1,10 @@
 import os
 import shutil
 import subprocess
-from multiprocessing import Process
 from typing import Dict, List
 from uuid import UUID
 
-import utils
+from .calculation import calculate_carbon_footprint, calculate_energy_needed
 
 
 def run_code(code: str, session_id: UUID, server_information: Dict, pwd: str) -> Dict:
@@ -25,23 +24,23 @@ def run_code(code: str, session_id: UUID, server_information: Dict, pwd: str) ->
     Returns:
         A dictionary containing information of the code execution
     """
-    _copy_code(code, session_id, pwd)
+    copy_code(code, session_id, pwd)
 
     container_run_success = _run_container(session_id, pwd)
 
     results = (
         {"success": False}
         if container_run_success == 1
-        else {"success": True, **_read_results(session_id, pwd)}
+        else {"success": True, **read_results(session_id, pwd)}
     )
 
-    _clean_up(session_id, pwd)
+    clean_up(session_id, pwd)
 
     if results["success"] == False:
         return results
 
     cpu_usage = min(results["runtime_user"] / results["runtime_real"], 1.0)
-    energy_needed = utils.calculate_energy_needed(
+    energy_needed = calculate_energy_needed(
         results["runtime_real"] / 3600,
         server_information["CORE_POWER"],
         cpu_usage,
@@ -49,7 +48,7 @@ def run_code(code: str, session_id: UUID, server_information: Dict, pwd: str) ->
         server_information["PUE"],
         server_information["PSF"],
     )
-    carbon_footprint = utils.calculate_carbon_footprint(
+    carbon_footprint = calculate_carbon_footprint(
         energy_needed, server_information["CI"]
     )
 
@@ -61,7 +60,7 @@ def run_code(code: str, session_id: UUID, server_information: Dict, pwd: str) ->
     }
 
 
-def _copy_code(code: str, session_id: UUID, pwd: str) -> None:
+def copy_code(code: str, session_id: UUID, pwd: str) -> None:
     """Copy user given code to a containerized directory
 
     The user given code is written to a containerized directory. The neccesary
@@ -122,7 +121,7 @@ def _run_container(session_id: UUID, pwd: str) -> int:
     return 0
 
 
-def _read_results(session_id: UUID, pwd: str) -> Dict:
+def read_results(session_id: UUID, pwd: str) -> Dict:
     container_path = os.path.join(pwd, "container", str(session_id))
 
     with open(os.path.join(container_path, "execution_results.txt"), "r") as f:
@@ -137,7 +136,7 @@ def _read_results(session_id: UUID, pwd: str) -> Dict:
     }
 
 
-def _clean_up(session_id: UUID, pwd: str) -> None:
+def clean_up(session_id: UUID, pwd: str) -> None:
     container_path = os.path.join(pwd, "container", str(session_id))
     shutil.rmtree(container_path)
 
