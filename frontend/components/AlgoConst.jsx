@@ -5,6 +5,7 @@
 // PSF deafult value: 1 - `green-algorithms-tool/app.py`
 // CPU: 1 - `green-algorithms-tool/app.py`
 
+// maintainance: 후에 사용자가 PUE, PSF, CPU usage를 입력할 수 있으므로 현재 사용하지 않는 기능은 주석처리한다.
 "use client";
 import React, { useState } from "react";
 
@@ -17,8 +18,8 @@ const AlgoInfo = ({ title, description, value, onChange }) => {
           className="w-full all-initial"
           type="number"
           value={value}
-          onChange={onChange}
-          placeholder={description}
+          // onChange={onChange}
+          // placeholder={description}
         />
       </div>
     </div>
@@ -68,12 +69,12 @@ const AlgoConst = () => {
           onChange={handleCpuChange}
         />
         <div className="py-5 flex-center">
-          <button
+          {/* <button
             type="submit"
             onClick={saveButton}
             className="px-16 py-2 text-white rounded-3xl bg-primary-green flex-center">
             Save
-          </button>
+          </button> */}
         </div>
       </form>
     </div>
