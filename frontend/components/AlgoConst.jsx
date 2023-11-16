@@ -1,15 +1,13 @@
 // 탄소배출량 계산에 필요한 알고리즘 상수
-// saveButton 구현하고 redirect 막기
 // PUE, PSF, CPU Usage Factor
 // PUE deafult value: 1.67 - `green-algorithms-tool/data/v2.2/defaults_PUE.csv unknown 참고`
 // PSF deafult value: 1 - `green-algorithms-tool/app.py`
 // CPU: 1 - `green-algorithms-tool/app.py`
 
 // maintainance: 후에 사용자가 PUE, PSF, CPU usage를 입력할 수 있으므로 현재 사용하지 않는 기능은 주석처리한다.
-"use client";
-import React, { useState } from "react";
+import React from "react";
 
-const AlgoInfo = ({ title, description, value, onChange }) => {
+const AlgoInfo = ({ title, value }) => {
   return (
     <div className="p-3 rounded-xl h-[90px]">
       <div className="py-1 font-semibold rounded-xl flex-start">{title}</div>
@@ -18,8 +16,7 @@ const AlgoInfo = ({ title, description, value, onChange }) => {
           className="w-full all-initial"
           type="number"
           value={value}
-          // onChange={onChange}
-          // placeholder={description}
+          readOnly
         />
       </div>
     </div>
@@ -27,47 +24,12 @@ const AlgoInfo = ({ title, description, value, onChange }) => {
 };
 
 const AlgoConst = () => {
-  const [pue, setPue] = useState(1.67);
-  const [pse, setPse] = useState(1);
-  const [cpu, setCpu] = useState(1);
-
-  const handlePueChange = (e) => {
-    setPue(e.target.value);
-  };
-
-  const handlePseChange = (e) => {
-    setPse(e.target.value);
-  };
-
-  const handleCpuChange = (e) => {
-    setCpu(e.target.value);
-  };
-
-  const saveButton = (e) => {
-    // pue, pse, usage cpu 값 저장해서 넘겨주기
-  };
-
   return (
     <div className="bg-gray-100">
       <form action="">
-        <AlgoInfo
-          title="Power Usage Effectiveness"
-          description="1.67"
-          value={pue}
-          onChange={handlePueChange}
-        />
-        <AlgoInfo
-          title="Pragmatic Scaling Factor"
-          description="1"
-          value={pse}
-          onChange={handlePseChange}
-        />
-        <AlgoInfo
-          title="CPU Usage Factor"
-          description="1"
-          value={cpu}
-          onChange={handleCpuChange}
-        />
+        <AlgoInfo title="Power Usage Effectiveness" value={1.67} />
+        <AlgoInfo title="Pragmatic Scaling Factor" value={1} />
+        <AlgoInfo title="CPU Usage Factor" value={1} />
         <div className="py-5 flex-center">
           {/* <button
             type="submit"
