@@ -140,8 +140,8 @@ const FootPrintResult = ({resultsData, userCode}) => {
             className="px-16 py-2 text-white rounded-3xl bg-primary-green flex-center">
             Refactoring
           </button>
-        </div>
-    </div> */}
+      </div> */}
+    </div>
   );
 };
 
