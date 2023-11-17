@@ -6,7 +6,7 @@
 
 import React, { useRef, useEffect } from "react";
 import { Chart, initTE } from "tw-elements";
-const MyChartComponent = () => {
+const FootPrintChart = () => {
   const chartRef = useRef(null);
 
   useEffect(() => {
@@ -16,7 +16,13 @@ const MyChartComponent = () => {
       type: "bar",
       data: {
         labels: ["Original", "Suggested"],
-        datasets: [{ label: "Carbon footprint", data: [30, 15] }],
+        datasets: [
+          {
+            label: "Carbon footprint",
+            data: [30, 15],
+            barThickness: 20,
+          },
+        ],
       },
     };
 
@@ -41,9 +47,10 @@ const MyChartComponent = () => {
             stacked: true,
             grid: {
               display: false,
+              // display: true,
             },
             ticks: {
-              color: "rgba(0,0,0, 0.5)",
+              color: "rgba(0,0,0, 0.5)", // 왼쪽에 Original, Suggested 글자 색
             },
           },
         },
@@ -57,10 +64,11 @@ const MyChartComponent = () => {
     new Chart(chartRef.current, dataBarHorizontal, optionsBarHorizontal);
   }, []);
 
-  return <canvas ref={chartRef}></canvas>;
-};
-const FootPrintDiff = ({ fromValue, toValue }) => {
-  return <div></div>;
+  return (
+    <div className="">
+      <canvas ref={chartRef} style={{ height: "100px" }}></canvas>
+    </div>
+  );
 };
 
 const AnalysisDiff = () => {
@@ -68,8 +76,9 @@ const AnalysisDiff = () => {
     <div className="p-3 rounded-xl bg-surface-dark">
       <div className="flex-col flex-center bg-background rounded-xl">
         <div>Carbon footprint</div>
-        <div class="mx-auto w-3/5 h-full overflow-hidden">
-          <MyChartComponent />
+        {/* <div class="w-4/5 overflow-scroll"> */}
+        <div class="w-4/5 ">
+          <FootPrintChart />
         </div>
       </div>
     </div>

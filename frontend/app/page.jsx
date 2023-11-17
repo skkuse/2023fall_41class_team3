@@ -42,13 +42,13 @@ const Home = () => {
         <div className="py-10 flex-center">
           <UserCode updateResultsData={updateResultsData} />
         </div>
-        <div className="flex flex-row gap-5 ">
-          <div className="grid w-1/3 gap-6">
+        <div className="flex flex-row gap-5">
+          <div className="w-1/5 gap-6 ">
             <AlgoConst />
             <ServerEviornments />
             <Runtime />
           </div>
-          <div className="flex-col w-2/3">
+          <div className="w-4/5">
             {/* resultsData내용을 전달*/}
             <Results resultsData={resultsData} codeData={codeData} />
           </div>

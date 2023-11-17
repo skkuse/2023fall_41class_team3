@@ -8,10 +8,12 @@ import { IoIosSettings } from "react-icons/io";
 const CpuInfo = ({ title, description }) => {
   return (
     <div className="flex p-3 bg-slate-50 rounded-xl h-[90px]">
-      <div className="w-1/3 font-semibold rounded-xl flex-center bg-neutral-300">
+      <div className="w-1/3 overflow-scroll text-xs font-semibold rounded-xl flex-center bg-neutral-300">
         {title}
       </div>
-      <div className="w-2/3 flex-center">{description}</div>
+      <div className="w-2/3 overflow-scroll text-xs flex-center">
+        {description}
+      </div>
     </div>
   );
 };

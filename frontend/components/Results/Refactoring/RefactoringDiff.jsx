@@ -32,12 +32,12 @@ const RefactoringDiff = () => {
   return (
     <div className="h-full ">
       <div className="h-[90%] bg-surface-dark rounded-xl">
-        <div className="h-[90%] py-10 flex-center overflow-hidden ">
+        <div className="h-[90%] pt-5 flex-center overflow-hidden ">
           <div
-            id="container"
+            // id="container"
             // style={{ height: "90%" }}
             ref={containerRef}
-            className="w-[90%] h-full m-auto">
+            className="w-[95%] h-full m-auto">
             <div className="flex-col py-4 text-xl font-bold border flex-center rounded-t-xl bg-background">
               Suggested Change
               <div className="flex p-2 text-sm text-red-400">

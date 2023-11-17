@@ -32,7 +32,7 @@ const Refactoring = () => {
   }, []);
 
   return (
-    <div className="h-[90%] bg-surface p-2 flex flex-col gap-3">
+    <div className="h-[95%] bg-surface p-2 flex flex-col  gap-3">
       <AnalysisDiff />
       <RefactoringDiff />
     </div>
