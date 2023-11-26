@@ -18,7 +18,7 @@ const CodeEditorComponent = ({ onSubmit }) => {
   return (
     <div className="h-full w-full bg-[#1e1e1e] flex-col justify-between">
       <Editor
-        height="90%"
+        height="80%"
         width="100%"
         theme="vs-dark"
         value={code}
@@ -28,7 +28,7 @@ const CodeEditorComponent = ({ onSubmit }) => {
         className="my-5"
       />
 
-      <div className="flex items-center justify-end p-2 space-x-2 border-black-1 space-between">
+      <div className="flex h-1/5 items-center justify-end p-2 space-x-2 border-black-1 space-between">
         <button
           type="button"
           className="rounded-full bg-primary-green px-6 pb-2 pt-2.5 text-xl font-medium uppercase leading-normal text-white shadow-[0_4px_9px_-4px_#14a44d] transition duration-150 ease-in-out hover:bg-success-600 hover:shadow-[0_8px_9px_-4px_rgba(20,164,77,0.3),0_4px_18px_0_rgba(20,164,77,0.2)] focus:bg-success-600 focus:shadow-[0_8px_9px_-4px_rgba(20,164,77,0.3),0_4px_18px_0_rgba(20,164,77,0.2)] focus:outline-none focus:ring-0 active:bg-success-700 active:shadow-[0_8px_9px_-4px_rgba(20,164,77,0.3),0_4px_18px_0_rgba(20,164,77,0.2)] dark:shadow-[0_4px_9px_-4px_rgba(20,164,77,0.5)] dark:hover:shadow-[0_8px_9px_-4px_rgba(20,164,77,0.2),0_4px_18px_0_rgba(20,164,77,0.1)] dark:focus:shadow-[0_8px_9px_-4px_rgba(20,164,77,0.2),0_4px_18px_0_rgba(20,164,77,0.1)] dark:active:shadow-[0_8px_9px_-4px_rgba(20,164,77,0.2),0_4px_18px_0_rgba(20,164,77,0.1)]"
