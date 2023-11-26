@@ -3,7 +3,7 @@ import Image from "next/image";
 
 const Header = () => {
   return (
-    <div className="w-full h-[7rem] bg-green-900 flex-col justify-center items-center">
+    <header className="w-full h-[7rem] bg-green-900 flex-col justify-center items-center">
       <Link href="/">
         <div className="flex content-center justify-center m-1 items-center">
           <Image
@@ -19,7 +19,7 @@ const Header = () => {
       <div className="flex content-center justify-center items-center text-white text-xl italic">
         The perfect carbon footprint calculator for your code.
       </div>
-    </div>
+    </header>
   );
 };
 
