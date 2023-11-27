@@ -8,7 +8,7 @@ import ExecutionResultsComponent from "./ExecutionResultsComponent";
 
 const CODE_EXECUTION_URL = process.env.NEXT_PUBLIC_BACKEND_URL + "/execution";
 
-const CodeSection = ({ onFinish }) => {
+const CodeSection = ({ onSubmit, onFinish }) => {
   // Page state can either be 0, 1, or 2.
   // 0 indicates showing the CodeEditorComponent,
   // 1 indicates showing the process queue,
@@ -35,6 +35,7 @@ const CodeSection = ({ onFinish }) => {
       .catch((error) => {
         console.log(error);
       });
+    onSubmit(code);
     setPageState(1);
   };
 
