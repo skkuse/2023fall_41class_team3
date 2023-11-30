@@ -14,16 +14,6 @@ pip install -r requirements.txt
 mysql.server start
 ```
 
-## Run Docker container for Redis
-```bash
-docker run -p 6379:6379 --name redis-server redis
-```
-
-## Run Docker container for RabbitMQ
-```bash
-docker run -p 8080:15672 -p 5672:5672 --name rabbitmq-server rabbitmq
-```
-
 ## Run SQL initialization script
 ```sql
 CREATE DATABASE codeco;
@@ -41,6 +31,9 @@ DB_PASSWORD=password
 DB_HOST=localhost
 DB_PORT=3306
 DB_NAME=codeco
+CELERY_BROKER= amqp://localhost:5672
+CELERY_RESULT_BACKEND=redis://localhost:6379
+OPENAI_API_KEY=<insert OPENAI_API_KEY>
 ```
 
 ## Database configuration
@@ -50,14 +43,19 @@ flask db migrate -m "Initial migration."
 flask db upgrade
 ```
 
-## Run flask server
+
+## Run Docker container for Redis and RabbitMQ
 ```bash
-flask run
+docker run --rm -d -p 6379:6379 --name redis-server redis &&\
+docker run --rm -d -p 8080:15672 -p 5672:5672 --name rabbitmq-server rabbitmq
+```
+
+## Run Flask server
+```bash
+gunicorn -w 4 -b 127.0.0.1:4000 'app:app'
 ```
 
 ## Run Celery
 ```bash
 celery -A app.celery worker --loglevel INFO
 ```
-
-
