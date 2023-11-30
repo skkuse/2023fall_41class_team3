@@ -9,6 +9,7 @@ from celery.signals import worker_init
 from config import Config
 from db.models import SubmittedCode
 from flask import Blueprint, request
+from flask_cors import cross_origin
 from sqlalchemy import NullPool, create_engine, delete, orm, select, update
 from utils import execution_utils
 
@@ -22,7 +23,8 @@ session = Session()
 def construct_blueprint(server_information: Dict) -> Blueprint:
     execution = Blueprint("execution", __name__)
 
-    @execution.post("/")
+    @execution.post("")
+    @cross_origin()
     def submit_code():
         session_id = uuid.uuid4()
 
@@ -38,21 +40,31 @@ def construct_blueprint(server_information: Dict) -> Blueprint:
 
         return {"result_id": result.id}
 
-    @execution.get("/result/<id>")
+    @execution.get("result/<id>")
+    @cross_origin()
     def get_execution_result(id: str):
+        row = session.execute(select(SubmittedCode)).first()
+        code_status = "error" if row is None else row[0].status
+
         result = AsyncResult(id)
         return {
-            "ready": result.ready(),
+            "status": code_status,
             "successful": result.successful(),
             "value": result.result if result.ready() else None,
         }
 
-    @execution.get("/queue")
+    @execution.get("queue")
+    @cross_origin()
     def get_queue():
         codes = session.scalars(select(SubmittedCode))
+
         return {
-            code.submission_id: str(code.submission_date) + str(code.status)
-            for code in codes
+            str(index): {
+                "submission_id": code.submission_id,
+                "submission_date": str(code.submission_date),
+                "status": code.status,
+            }
+            for (index, code) in enumerate(codes)
         }
 
     return execution

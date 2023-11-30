@@ -62,6 +62,9 @@ def get_server_information(config_file: pathlib.Path) -> Dict:
         config_data = yaml.safe_load(f)
 
     return {
+        "LOCATION": config_data["location"],
+        "CPU_MODEL": config_data["cpu_model"],
+        "PROVIDER": config_data["provider"],
         "PUE": get_PUE(config_data),
         "PSF": get_PSF(config_data),
         "CI": get_CI(config_data),
