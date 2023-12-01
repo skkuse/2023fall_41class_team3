@@ -36,7 +36,9 @@ def construct_blueprint(server_information: Dict) -> Blueprint:
         )
         session.commit()
 
-        result = execute_code.delay(code, session_id, server_information)  # type: ignore
+        result = execute_code.apply_async(
+            (code, session_id, server_information), task_id=str(session_id)
+        )  # type: ignore
 
         return {"result_id": result.id}
 
