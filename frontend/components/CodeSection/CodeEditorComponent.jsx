@@ -15,14 +15,31 @@ const CodeEditorComponent = ({ onSubmit }) => {
     onSubmit(code);
   };
 
+  const handleKeyDown = (event) => {
+    console.log("Pressed key:", event.key); // Logs the key name
+
+    // Check for F5 or Ctrl+R or Cmd+R
+    if (
+      event.key === "F5" ||
+      (event.ctrlKey && event.key === "r") ||
+      (event.metaKey && event.key === "r")
+    ) {
+      localStorage.setItem("code", INITIAL_JAVA_CODE);
+      console.log("Set initial code in localStorage on refresh");
+
+      // Retrieve to check if it was set
+      const originalCode = localStorage.getItem("code");
+      console.log("Code in localStorage after setting:", originalCode);
+    }
+  };
+
   // TODO: 처음에 사용자가 입력한 코드 불러오기
   useEffect(() => {
-    const originalCode = localStorage.getItem("code"); // Retrieve the originalCode from localStorage
-
-    if (originalCode != INITIAL_JAVA_CODE) {
-      setCode(originalCode);
-    }
-    // Then set the initial code
+    // Attach the event listener
+    const originalCode = localStorage.getItem("code");
+    window.addEventListener("keydown", handleKeyDown);
+    console.log(originalCode);
+    setCode(originalCode);
   }, []);
 
   return (
