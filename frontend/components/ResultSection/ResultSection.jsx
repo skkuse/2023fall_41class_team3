@@ -15,9 +15,9 @@ const ResultSection = ({ code, state=0, results }) => {
   const unselectedButtonClass = "bg-gray-500";
 
   const render = [
-    <InformationComponent />,
-    <ResultsAnalysisComponent results={results} />,
-    <RefactorizationComponent code={code} />,
+    <InformationComponent key="information" />,
+    <ResultsAnalysisComponent key="resultsAnalysis" results={results} />,
+    <RefactorizationComponent key="refactorization" code={code} />,
   ];
 
   useEffect(() => {
@@ -36,8 +36,7 @@ const ResultSection = ({ code, state=0, results }) => {
           }`}
           onClick={() => {
             setPageState(0);
-          }}
-        >
+          }}>
           What is CodEco?
         </button>
         <button
@@ -46,8 +45,7 @@ const ResultSection = ({ code, state=0, results }) => {
           }`}
           onClick={() => {
             setPageState(1);
-          }}
-        >
+          }}>
           Results Analysis
         </button>
         <button
@@ -56,13 +54,12 @@ const ResultSection = ({ code, state=0, results }) => {
           }`}
           onClick={() => {
             setPageState(2);
-          }}
-        >
+          }}>
           Code Refactoring
         </button>
       </div>
-      <div className="h-full bg-green-900 flex justify-center items-center p-3">
-        <div className="rounded-xl h-full w-full bg-white p-7">
+      <div className="h-full bg-green-900 flex-center">
+        <div className="rounded-xl h-[90%] w-[96%] bg-white p-7">
           {render[pageState]}
         </div>
       </div>

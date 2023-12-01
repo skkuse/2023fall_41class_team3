@@ -46,9 +46,14 @@ const CodeSection = ({ onSubmit, onRes, onFinish }) => {
   };
 
   const render = [
-    <CodeEditorComponent onSubmit={codeEditorSubmitHandler} />,
-    <QueueComponent resultID={resultID} onFinish={queueFinishHandler} />,
+    <CodeEditorComponent key="codeEditor" onSubmit={codeEditorSubmitHandler} />,
+    <QueueComponent
+      key="queue"
+      resultID={resultID}
+      onFinish={queueFinishHandler}
+    />,
     <ExecutionResultsComponent
+      key="executionResults"
       value={executionResult}
       onResState={(res) => onRes(res)}
       onPageChange={() => setPageState(0)}

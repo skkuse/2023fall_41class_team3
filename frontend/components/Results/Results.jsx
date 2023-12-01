@@ -37,7 +37,7 @@ const Results = ({ resultsData, userCode }) => {
       </div>
       <div className="h-full">
         {resultBtnState ? (
-          <FootPrintResult resultsData={resultsData} userCode={userCode}/>
+          <FootPrintResult resultsData={resultsData} userCode={userCode} />
         ) : (
           <Refactoring />
         )}
