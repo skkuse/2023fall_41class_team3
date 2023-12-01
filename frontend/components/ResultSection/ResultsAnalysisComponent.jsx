@@ -20,11 +20,10 @@ const ResultCard = ({ src, description, value, id, unit, scale }) => {
 };
 
 const ResultsAnalysisComponent = ({ results }) => {
+  const [scale, setScale] = useState(1000);
   if (results.success === false) {
     return <h1>Execute valid code first!</h1>;
   }
-
-  const [scale, setScale] = useState(1000);
 
   const carbonFootprint = Number(results?.carbon_footprint || 0.0);
   const cpuUsage = Number(results?.cpu_usage || 0.0);
@@ -66,20 +65,20 @@ const ResultsAnalysisComponent = ({ results }) => {
 
       <h2>
         Executing this code for
-        <span className="inline-flex items-center justify-center mt-8 h-full">
+        <span className="inline-flex items-center justify-center h-full mt-8">
           <input
             type="number"
             value={scale}
             onChange={(e) => {
               setScale(e.target.value);
             }}
-            className="h-full w-32 text-left border border-blue-500 mx-2 p-2"
+            className="w-32 h-full p-2 mx-2 text-left border border-blue-500"
           />
         </span>
         times is equivalent to:
       </h2>
 
-      <div className="grid grid-cols-2 gap-3 w-full justify-center items-center text-center bg-surface-dark p-2 rounded">
+      <div className="grid items-center justify-center w-full grid-cols-2 gap-3 p-2 text-center rounded bg-surface-dark">
         <ResultCard
           src="/assets/icons/tree_icon.svg"
           description=""
