@@ -45,12 +45,9 @@ def construct_blueprint(server_information: Dict) -> Blueprint:
     @execution.get("result/<id>")
     @cross_origin()
     def get_execution_result(id: str):
-        row = session.execute(select(SubmittedCode)).first()
-        code_status = "error" if row is None else row[0].status
-
         result = AsyncResult(id)
         return {
-            "status": code_status,
+            "status": result.status,
             "successful": result.successful(),
             "value": result.result if result.ready() else None,
         }
@@ -58,7 +55,9 @@ def construct_blueprint(server_information: Dict) -> Blueprint:
     @execution.get("queue")
     @cross_origin()
     def get_queue():
-        codes = session.scalars(select(SubmittedCode))
+        codes = session.scalars(
+            select(SubmittedCode).order_by(SubmittedCode.submission_date)
+        )
 
         return {
             str(index): {
