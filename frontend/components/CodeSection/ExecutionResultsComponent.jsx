@@ -1,7 +1,6 @@
 import React, { useState } from 'react';
 import Editor from "@monaco-editor/react";
 import Link from "next/link";
-import Modal from "react-modal";
 
 const ExecutionResultsComponent = ({ value, onResState, onPageChange }) => {
   
