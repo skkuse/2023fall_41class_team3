@@ -24,7 +24,7 @@ FLUSH PRIVILEGES;
 
 ## Configure .env file
 ```bash
-FLASK_APP=run.py
+FLASK_APP=app.py
 FLASK_ENV=development
 DB_USER=admin
 DB_PASSWORD=password
