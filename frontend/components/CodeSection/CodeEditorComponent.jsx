@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState} from "react";
 import Editor from "@monaco-editor/react";
 // import { constrainedEditor } from "constrained-editor-plugin";
 const INITIAL_JAVA_CODE =
@@ -7,7 +7,6 @@ const INITIAL_JAVA_CODE =
 const CodeEditorComponent = ({ onSubmit }) => {
   const [code, setCode] = useState(INITIAL_JAVA_CODE);
   let restrictions = [];
-
   const editorChangeHandler = (value, _) => {
     setCode(value);
   };
@@ -16,6 +15,8 @@ const CodeEditorComponent = ({ onSubmit }) => {
     onSubmit(code);
   };
 
+
+
   return (
     <div className="h-full w-full bg-[#1e1e1e] flex-col justify-between">
       <Editor
@@ -23,7 +24,7 @@ const CodeEditorComponent = ({ onSubmit }) => {
         width="100%"
         theme="vs-dark"
         value={code}
-        options={{ fontSize: 18}}
+        options={{ fontSize: 18, suggest: { showWords: false }}}
         defaultLanguage="java"
         onChange={editorChangeHandler}
         className="my-5"
