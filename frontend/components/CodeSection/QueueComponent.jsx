@@ -11,11 +11,11 @@ const Loader = () => {
       <div className="flex flex-auto flex-col justify-center items-center p-4 md:p-5">
         <div className="flex justify-center">
           <div
-            className="animate-spin inline-block w-6 h-6 border-[3px] border-current border-t-transparent text-blue-600 rounded-full dark:text-blue-500"
+            className="animate-spin inline-block w-6 h-6 border-[3px] border-current border-transparent text-blue-600 rounded-full dark:text-blue-500"
             role="status"
             aria-label="loading"
           >
-            <span className="sr-only">Loading...</span>
+            <span className="sr-only text-white">Loading...</span>
           </div>
         </div>
       </div>
@@ -27,16 +27,16 @@ const Table = ({ queue }) => {
   const tbody = Object.entries(queue).map(([index, data]) => {
     return (
       <tr>
-        <td className="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-800 dark:text-gray-200">
+        <td className="px-6 py-4 whitespace-nowrap text-sm font-medium text-white dark:text-gray-200">
           {index}
         </td>
-        <td className="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-800 dark:text-gray-200">
+        <td className="px-6 py-4 whitespace-nowrap text-sm font-medium text-white dark:text-gray-200">
           {data.submission_id}
         </td>
-        <td className="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-800 dark:text-gray-200">
+        <td className="px-6 py-4 whitespace-nowrap text-sm font-medium text-white dark:text-gray-200">
           {data.submission_date}
         </td>
-        <td className="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-800 dark:text-gray-200 uppercase">
+        <td className="px-6 py-4 whitespace-nowrap text-sm font-medium text-white dark:text-gray-200 uppercase">
           {data.status}
         </td>
       </tr>
@@ -53,31 +53,31 @@ const Table = ({ queue }) => {
                 <tr>
                   <th
                     scope="col"
-                    className="px-6 py-3 text-start text-xs font-medium text-gray-500 uppercase"
+                    className="px-6 py-3 text-start text-xs font-medium text-white uppercase"
                   >
                     Index
                   </th>
                   <th
                     scope="col"
-                    className="px-6 py-3 text-start text-xs font-medium text-gray-500 uppercase"
+                    className="px-6 py-3 text-start text-xs font-medium text-white uppercase"
                   >
                     Submission ID
                   </th>
                   <th
                     scope="col"
-                    className="px-6 py-3 text-start text-xs font-medium text-gray-500 uppercase"
+                    className="px-6 py-3 text-start text-xs font-medium text-white uppercase"
                   >
                     Submission Time
                   </th>
                   <th
                     scope="col"
-                    className="px-6 py-3 text-start text-xs font-medium text-gray-500 uppercase"
+                    className="px-6 py-3 text-start text-xs font-medium text-white uppercase"
                   >
                     Status
                   </th>
                 </tr>
               </thead>
-              <tbody className="divide-y divide-gray-200 dark:divide-gray-700">
+              <tbody className="divide-y divide-white dark:divide-gray-700">
                 {tbody}
               </tbody>
             </table>
@@ -137,7 +137,7 @@ const QueueComponent = ({ resultID, onFinish }) => {
     const intervalID = setInterval(() => {
       checkStatus();
       fetchQueue();
-    }, 1000);
+    }, 10000);
 
     return () => clearInterval(intervalID);
   }, []);

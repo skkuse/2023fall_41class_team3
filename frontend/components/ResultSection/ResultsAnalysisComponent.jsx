@@ -20,6 +20,7 @@ const ResultCard = ({ src, description, value, id, unit, scale }) => {
 };
 
 const ResultsAnalysisComponent = ({ results }) => {
+  
   if (results.success === false) {
     return <h1>Execute valid code first!</h1>;
   }
@@ -34,6 +35,11 @@ const ResultsAnalysisComponent = ({ results }) => {
   const numFlights = Number(carbonFootprint / 196137000);
   const car_percent = Number(carbonFootprint / 175);
   const netflix_hour = Number(carbonFootprint / 36);
+  
+  const num_snack = Number(carbonFootprint / 250);
+  const num_tissue = Number(carbonFootprint / 283);
+  const g_beef = Number(carbonFootprint / 13.71875); //1g
+  const ml_orange_juice = Number(carbonFootprint / 1.44); //ml
 
   return (
     <div className="flex flex-col items-start justify-center gap-3 p-2 bg-surface">
@@ -110,6 +116,39 @@ const ResultsAnalysisComponent = ({ results }) => {
           value={netflix_hour}
           id="people_text"
           unit="hours"
+          scale={scale}
+        />
+
+        <ResultCard
+          src="/assets/icons/snack.svg"
+          description="Snack (169g)"
+          value={num_snack}
+          id="num_snack_text"
+          unit=""
+          scale={scale}
+        />
+        <ResultCard
+          src="/assets/icons/tissue.svg"
+          description="Roll of toilet paper"
+          value={num_tissue}
+          id="num_tissue_text"
+          unit=""
+          scale={scale}
+        />
+        <ResultCard
+          src="/assets/icons/beef.svg"
+          description="of Beef"
+          value={g_beef}
+          id="g_beef_text"
+          unit="g"
+          scale={scale}
+        />
+        <ResultCard
+          src="/assets/icons/juice.svg"
+          description="of Orange Juice"
+          value={ml_orange_juice}
+          id="ml_orange_juice_text"
+          unit="ml"
           scale={scale}
         />
       </div>

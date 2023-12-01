@@ -58,15 +58,17 @@ const RefactorizationComponent = ({ code }) => {
   const RefactoredOutput = () => {
     return (
       <>
-        <h1 className="text-center">Updated Code</h1>
+        <div className="py-3 align-center items-center">
+          <h1 className="text-center">Updated Code</h1>
+        </div>
         <Editor
           height="100%"
           width="100%"
           theme="vs-dark"
           value={refactoredCode}
-          options={{ fontSize: 12 }}
+          options={{ fontSize: 12, readOnly: true }}
           defaultLanguage="java"
-          className="my-5"
+          className="mb-5"
         />
       </>
     );
@@ -87,15 +89,17 @@ const RefactorizationComponent = ({ code }) => {
 
       <div className="h-80 flex mt-10 border border-black">
         <div className="w-full">
-          <h1 className="text-center">Original Code</h1>
+          <div className="py-3 align-center items-center">
+            <h1 className="text-center">Original Code</h1>
+          </div>
           <Editor
             height="100%"
             width="100%"
             theme="vs-dark"
             value={code === "" ? "Submit your code first" : code}
-            options={{ fontSize: 12 }}
+            options={{ fontSize: 12,readOnly: true }}
             defaultLanguage="java"
-            className="my-5"
+            className="mb-5"
           />
         </div>
         <div className="h-full w-full">{render[refactorStatus]}</div>
