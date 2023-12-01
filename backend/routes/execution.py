@@ -36,19 +36,18 @@ def construct_blueprint(server_information: Dict) -> Blueprint:
         )
         session.commit()
 
-        result = execute_code.delay(code, session_id, server_information)  # type: ignore
+        result = execute_code.apply_async(
+            (code, session_id, server_information), task_id=str(session_id)
+        )  # type: ignore
 
         return {"result_id": result.id}
 
     @execution.get("result/<id>")
     @cross_origin()
     def get_execution_result(id: str):
-        row = session.execute(select(SubmittedCode)).first()
-        code_status = "error" if row is None else row[0].status
-
         result = AsyncResult(id)
         return {
-            "status": code_status,
+            "status": result.status,
             "successful": result.successful(),
             "value": result.result if result.ready() else None,
         }
@@ -56,7 +55,9 @@ def construct_blueprint(server_information: Dict) -> Blueprint:
     @execution.get("queue")
     @cross_origin()
     def get_queue():
-        codes = session.scalars(select(SubmittedCode))
+        codes = session.scalars(
+            select(SubmittedCode).order_by(SubmittedCode.submission_date)
+        )
 
         return {
             str(index): {
