@@ -1,7 +1,6 @@
 "use client";
 
 import React, { useState } from "react";
-import React, { useState } from "react";
 
 import ServerInformationSection from "@/components/ServerInformationSection/ServerInformationSection";
 import CodeSection from "@/components/CodeSection/CodeSection";
@@ -19,39 +18,42 @@ const Home = () => {
     carbon_footprint: 0.0,
   });
 
-  const [codeData, setCodeData] = useState({
-    bef_code: "", // UserCode에서 입력한 코드
-    aft_code: "", // Refactoring에서 수정한 코드
-  });
-
-  // UserCode에서 ResultsData 내용 변경
-  const updateResultsData = (data, code) => {
-    setResultsData(data);
-    setCodeData({
-      bef_code: code,
-      aft_code: "",
-    });
+  const [code, setCode] = useState("");
+  const [resState, setResState] = useState(0); // 0: code, 1: results, 2: refactoring
+  const updateResState = (state) => {
+    setResState(state);
   };
-
   return (
-    <section className="flex-col w-full">
-      <div>
-        <div className="p-10 flex-center">
-          <UserCode updateResultsData={updateResultsData} />
+    <main className="flex-col w-full">
+      <section id="code-section" className="my-10 p-10 flex-center h-[36rem]">
+        <CodeSection
+          onSubmit={(code) => setCode(code)}
+          onRes={updateResState}
+          onFinish={(results) =>
+            setExecutionResults((before) => {
+              return { ...before, ...results };
+            })
+          }
+        />
+      </section>
+
+      <section
+        id="analysis"
+        className="flex flex-row gap-5 mx-9 h-auto min-h-[45rem]">
+        <div className="w-1/5">
+          <ServerInformationSection />
         </div>
-        <div className="flex flex-row gap-5 mx-9">
-          <div className="grid w-1/3 gap-6">
-            <AlgoConst />
-            <ServerEviornments />
-            <Runtime />
-          </div>
-          <div className="flex-col w-2/3">
-            {/* resultsData내용을 전달*/}
-            <Results resultsData={resultsData} codeData={codeData} />
-          </div>
+
+        <div className="w-4/5 flex-col mb-20 min-h-[45rem] h-auto">
+          <ResultSection
+            code={code}
+            state={resState}
+            updateState={updateResState}
+            results={executionResults}
+          />
         </div>
-      </div>
-    </section>
+      </section>
+    </main>
   );
 };
 

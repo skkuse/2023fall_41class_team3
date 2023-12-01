@@ -20,20 +20,7 @@ const Header = () => {
       <div className="flex items-center content-center justify-center text-xl italic text-white">
         The perfect carbon footprint calculator for your code.
       </div>
-      <div id="forest-player" className="top-0 w-full -z-10">
-        <ReactPlayer
-          className="top-0"
-          url="/assets/videos/banner.mp4"
-          width="100%"
-          height="100%"
-          playing={true}
-          muted={true}
-          controls={false}
-          loop={true}
-          disablePictureInPicture={true}
-        />
-      </div>
-    </div>
+    </header>
   );
 };
 
