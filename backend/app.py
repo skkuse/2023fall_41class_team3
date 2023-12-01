@@ -1,32 +1,58 @@
-import os
-import uuid
 from pathlib import Path
 
-from flask import Flask, request
-from run import run_code
+import routes
+from celery import Celery
+from config import Config
+from db import db
+from flask import Flask
+from flask_cors import CORS, cross_origin
+from flask_migrate import Migrate
 from utils import get_server_information, setup_docker
 
 
-def create_app():
-    app = Flask(__name__)
+def make_celery(app):
+    celery = Celery(
+        __name__,
+        backend=Config.CELERY["CELERY_RESULT_BACKEND"],
+        broker=Config.CELERY["CELERY_BROKER_URL"],
+    )
+    celery.conf.update(app.config)
 
-    if setup_docker(container_path=Path("./container")) == 0:
-        print("Docker setup not successful")
-        exit(1)
+    class ContextTask(celery.Task):
+        def __call__(self, *args, **kwargs):
+            with app.app_context():
+                return self.run(*args, **kwargs)
 
-    server_information = get_server_information(Path("./server_config.yaml"))
+    celery.Task = ContextTask
+    return celery
 
-    @app.post("/api/submit_code")
-    def runtime():
-        session_id = uuid.uuid4()
 
-        request_body = request.get_json()
-        code = request_body["code"]
+app = Flask(__name__)
+app.config.from_object(Config)
 
-        return run_code(code, session_id, server_information, os.getcwd())
+cors = CORS(app, resources={r"/*": {"origins": "*"}})
+app.config["CORS_HEADERS"] = "Content-Type"
 
-    @app.post("/api/refactor")
-    def refactor():
-        return ""
 
-    return app
+db.init_app(app)
+migrate = Migrate(app, db)
+
+celery = make_celery(app)
+
+if setup_docker(container_path=Path("./container")) == 0:
+    print("Docker setup not successful")
+    exit(1)
+
+server_information = get_server_information(Path("./data/server_info.yaml"))
+
+
+@app.get("/server-info")
+@cross_origin()
+def get_server_info():
+    return server_information
+
+
+app.register_blueprint(routes.execution(server_information), url_prefix="/execution")
+app.register_blueprint(
+    routes.refactor(server_information), url_prefix="/refactorization"
+)

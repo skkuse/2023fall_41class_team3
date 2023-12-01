@@ -1,4 +1,10 @@
-# 2023fall_41class_team3
+# CodEco (Code + Eco)
+## 2023-2 SKKU Software Engineering Team 3 Project
+
+Web application for carbon footprint calculation of user inputted code.
+
+
+
 
 ## DB setting
 
