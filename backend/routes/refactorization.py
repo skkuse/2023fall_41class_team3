@@ -4,6 +4,7 @@ from typing import Dict
 
 import dotenv
 from flask import Blueprint, request
+from flask_cors import cross_origin
 from openai import OpenAI
 
 dotenv.load_dotenv()
@@ -16,11 +17,11 @@ from utils import execution_utils
 def construct_blueprint(server_information: Dict) -> Blueprint:
     refactorization = Blueprint("refactor", __name__)
 
-    @refactorization.post("/")
+    @refactorization.post("")
+    @cross_origin()
     def refactor_code():
         request_body = request.get_json()
         code = request_body.get("code", "")
-        carbon_footprint = request_body.get("carbon_footprint", 0.0)
 
         response = client.completions.create(
             model="text-davinci-003", prompt=generate_prompt(code), max_tokens=1024
@@ -34,14 +35,8 @@ def construct_blueprint(server_information: Dict) -> Blueprint:
         else:
             refactored_code = "Refactored code not found."
 
-        session_id = uuid.uuid4()
-        refactor_results = execution_utils.run_code(
-            refactored_code, session_id, server_information, os.getcwd()
-        )
-
         return {
             "refactored_code": refactored_code,
-            "refactor_results": refactor_results,
         }
 
     return refactorization
