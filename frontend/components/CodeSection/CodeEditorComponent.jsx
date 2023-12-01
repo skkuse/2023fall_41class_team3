@@ -1,12 +1,12 @@
 import { useState, useEffect } from "react";
 import Editor from "@monaco-editor/react";
-// import { constrainedEditor } from "constrained-editor-plugin";
+
 const INITIAL_JAVA_CODE =
   'import java.util.*;\nimport java.lang.*;\nimport java.io.*;\n\n/* Name of the class has to be "Main" only if the class is public. */\nclass Main\n{\n\tpublic static void main (String[] args) throws java.lang.Exception\n\t{\n\t\tSystem.out.println("Hello World!");\n\t}\n}';
 
 const CodeEditorComponent = ({ onSubmit }) => {
   const [code, setCode] = useState(INITIAL_JAVA_CODE);
-  let restrictions = [];
+
   const editorChangeHandler = (value, _) => {
     setCode(value);
   };
@@ -16,8 +16,6 @@ const CodeEditorComponent = ({ onSubmit }) => {
   };
 
   const handleKeyDown = (event) => {
-    console.log("Pressed key:", event.key); // Logs the key name
-
     // Check for F5 or Ctrl+R or Cmd+R
     if (
       event.key === "F5" ||

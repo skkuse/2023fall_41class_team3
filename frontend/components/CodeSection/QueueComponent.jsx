@@ -113,11 +113,7 @@ const QueueComponent = ({ resultID, onFinish }) => {
         url: QUEUE_URL,
       })
       .then((response) => response.data)
-      .then((data) =>
-        setQueue((previousQueue) => {
-          return { ...previousQueue, ...data };
-        })
-      )
+      .then((data) => setQueue(data))
       .catch((error) => {
         console.log(error);
         setQueue({});
@@ -132,7 +128,7 @@ const QueueComponent = ({ resultID, onFinish }) => {
     const intervalID = setInterval(() => {
       checkStatus();
       fetchQueue();
-    }, 10000);
+    }, 1000);
 
     return () => clearInterval(intervalID);
   }, []);
