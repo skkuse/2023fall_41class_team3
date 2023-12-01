@@ -27,16 +27,16 @@ const Table = ({ queue }) => {
   const tbody = Object.entries(queue).map(([index, data]) => {
     return (
       <tr key={data.submission_id}>
-        <td className="px-6 py-4 text-sm font-medium text-gray-800 whitespace-nowrap dark:text-gray-200">
+        <td className="px-6 py-4 text-sm font-medium text-white whitespace-nowrap dark:text-gray-200">
           {index}
         </td>
-        <td className="px-6 py-4 text-sm font-medium text-gray-800 whitespace-nowrap dark:text-gray-200">
+        <td className="px-6 py-4 text-sm font-medium text-white whitespace-nowrap dark:text-gray-200">
           {data.submission_id}
         </td>
-        <td className="px-6 py-4 text-sm font-medium text-gray-800 whitespace-nowrap dark:text-gray-200">
+        <td className="px-6 py-4 text-sm font-medium text-white whitespace-nowrap dark:text-gray-200">
           {data.submission_date}
         </td>
-        <td className="px-6 py-4 text-sm font-medium text-gray-800 uppercase whitespace-nowrap dark:text-gray-200">
+        <td className="px-6 py-4 text-sm font-medium text-white uppercase whitespace-nowrap dark:text-gray-200">
           {data.status}
         </td>
       </tr>
@@ -143,7 +143,7 @@ const QueueComponent = ({ resultID, onFinish }) => {
   }, []);
 
   return (
-    <div className="h-full w-full bg-[#1e1e1e] flex-col justify-around rounded-sm">
+    <div className="h-full w-full bg-[#1e1e1e] flex-col justify-around rounded-sm text-white">
       <div className="flex items-center p-10 text-white border-white rounded-t-sm h-1/5">
         Your code status: <span className="uppercase">{status}</span> [
         {resultID}]

@@ -43,7 +43,7 @@ const Home = () => {
         </div>
 
         <div className="w-4/5 flex-col mb-20 min-h-[45rem] h-auto">
-          <ResultSection code={code} state={resState} results={executionResults} />
+          <ResultSection code={code} state={resState} updateState= {updateResState} results={executionResults} />
         </div>
       </section>
     </main>

@@ -3,34 +3,7 @@ import Editor from "@monaco-editor/react";
 import Link from "next/link";
 import Modal from "react-modal";
 
-const ExecutionResultsComponent = ({ value, onResState = 0, onPageChange }) => {
-  const [modalVisible, setModalVisible] = useState(false);
-
-  const handleFailure = () => {
-    setModalVisible(true);
-  };
-
-  const closeModal = () => {
-    setModalVisible(false);
-  };
-
-  if (value.success === false) {
-    // 실패 시 모달을 표시
-    return (
-      <Modal isOpen={modalVisible} onRequestClose={closeModal}>
-        <Modal.Header closeButton>
-          <Modal.Title>Execution Failed</Modal.Title>
-        </Modal.Header>
-        <Modal.Body>
-          <p>Code execution failed. Please check your code and try again.</p>
-        </Modal.Body>
-        <Modal.Footer>
-          <button onClick={closeModal}>Close</button>
-        </Modal.Footer>
-      </Modal>
-    );
-  }
-
+const ExecutionResultsComponent = ({ value, onResState, onPageChange }) => {
   
   return (
     <div className="h-full w-full bg-[#1e1e1e] flex-col justify-between">
@@ -47,14 +20,16 @@ const ExecutionResultsComponent = ({ value, onResState = 0, onPageChange }) => {
         className="my-5"
       />
 
-      <div className="flex flex-row h-[45%] items-center justify-between  border-black-1 space-between text-white text-xl ml-[5%] mr-[2%]">
-        <div className="flex w-7/12 h-full justify-between align-center items-center">
-          <div>
-            Runtime: {value.runtime_real} <br />
-            Energy Needed: {value.energy_needed}kWh <br />
-            Carbon Footprint: {value.carbon_footprint}g CO2e
+      <div className={`flex flex-row h-[45%] items-center ${value.success ? 'justify-between' : 'justify-end'}  border-black-1 space-between text-white text-xl ml-[5%] mr-[2%]`}>
+        {value.success && (
+          <div className="flex w-7/12 h-full justify-between align-center items-center">
+            <div>
+              Runtime: {value.runtime_real} <br />
+              Energy Needed: {value.energy_needed}kWh <br />
+              Carbon Footprint: {value.carbon_footprint}g CO2e
+            </div>
           </div>
-        </div>
+        )}
         <div className="flex pb-5 justify-between align-bottom items-end h-full">
           <div className="flex align-center flex-row justify-end">
             <button
@@ -64,15 +39,15 @@ const ExecutionResultsComponent = ({ value, onResState = 0, onPageChange }) => {
             >
               Edit Code
             </button>
-            <Link href="/#analysis" scroll={true}>
+            {value.success && (<Link href="/#analysis" scroll={true}>
               <button
                 type="button"
-                onClick={onResState(1)}
+                onClick={() => onResState(1)}
                 className="rounded-full bg-primary-green px-6 pb-2 pt-2.5 text-xl font-medium uppercase leading-normal text-white shadow-[0_4px_9px_-4px_#14a44d] transition duration-150 ease-in-out hover:bg-success-600 hover:shadow-[0_8px_9px_-4px_rgba(20,164,77,0.3),0_4px_18px_0_rgba(20,164,77,0.2)] focus:bg-success-600 focus:shadow-[0_8px_9px_-4px_rgba(20,164,77,0.3),0_4px_18px_0_rgba(20,164,77,0.2)] focus:outline-none focus:ring-0 active:bg-success-700 active:shadow-[0_8px_9px_-4px_rgba(20,164,77,0.3),0_4px_18px_0_rgba(20,164,77,0.2)] dark:shadow-[0_4px_9px_-4px_rgba(20,164,77,0.5)] dark:hover:shadow-[0_8px_9px_-4px_rgba(20,164,77,0.2),0_4px_18px_0_rgba(20,164,77,0.1)] dark:focus:shadow-[0_8px_9px_-4px_rgba(20,164,77,0.2),0_4px_18px_0_rgba(20,164,77,0.1)] dark:active:shadow-[0_8px_9px_-4px_rgba(20,164,77,0.2),0_4px_18px_0_rgba(20,164,77,0.1)]"
               >
                 Analysis
               </button>
-            </Link>
+            </Link>)}
           </div>
         </div>
       </div>

@@ -55,7 +55,7 @@ const CodeSection = ({ onSubmit, onRes, onFinish }) => {
     <ExecutionResultsComponent
       key="executionResults"
       value={executionResult}
-      onResState={(res) => onRes(res)}
+      onResState={onRes}
       onPageChange={() => setPageState(0)}
     />,
   ];
