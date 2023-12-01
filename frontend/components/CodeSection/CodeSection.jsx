@@ -30,14 +30,20 @@ const CodeSection = ({ onSubmit, onRes, onFinish }) => {
           code: code,
         }),
       })
-      .then((response) => response.data)
-      .then((data) => setResultID(data.result_id))
+      .then((response) => {
+        const data = response.data;
+        localStorage.setItem("code", code); // 사용자가 입력한 코드 로컬에 저장
+        setResultID(data.result_id);
+        onSubmit(code);
+        setPageState(1);
+      })
       .catch((error) => {
         console.log(error);
       });
-    onSubmit(code);
-    setPageState(1);
   };
+
+  // const originalCode = localStorage.getItem("code"); // Retrieve the originalCode from localStorage
+  // console.log(originalCode);
 
   const queueFinishHandler = (result) => {
     setExecutionResult(result);
