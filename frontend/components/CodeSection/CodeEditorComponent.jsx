@@ -1,11 +1,12 @@
 import { useState } from "react";
 import Editor from "@monaco-editor/react";
-
+// import { constrainedEditor } from "constrained-editor-plugin";
 const INITIAL_JAVA_CODE =
   'import java.util.*;\nimport java.lang.*;\nimport java.io.*;\n\n/* Name of the class has to be "Main" only if the class is public. */\nclass Main\n{\n\tpublic static void main (String[] args) throws java.lang.Exception\n\t{\n\t\tSystem.out.println("Hello World!");\n\t}\n}';
 
 const CodeEditorComponent = ({ onSubmit }) => {
   const [code, setCode] = useState(INITIAL_JAVA_CODE);
+  let restrictions = [];
 
   const editorChangeHandler = (value, _) => {
     setCode(value);
@@ -22,7 +23,7 @@ const CodeEditorComponent = ({ onSubmit }) => {
         width="100%"
         theme="vs-dark"
         value={code}
-        options={{ fontSize: 18 }}
+        options={{ fontSize: 18}}
         defaultLanguage="java"
         onChange={editorChangeHandler}
         className="my-5"

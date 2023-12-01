@@ -8,7 +8,7 @@ import ExecutionResultsComponent from "./ExecutionResultsComponent";
 
 const CODE_EXECUTION_URL = process.env.NEXT_PUBLIC_BACKEND_URL + "/execution";
 
-const CodeSection = ({ onSubmit, onFinish }) => {
+const CodeSection = ({ onSubmit, onRes, onFinish }) => {
   // Page state can either be 0, 1, or 2.
   // 0 indicates showing the CodeEditorComponent,
   // 1 indicates showing the process queue,
@@ -46,10 +46,16 @@ const CodeSection = ({ onSubmit, onFinish }) => {
   };
 
   const render = [
-    <CodeEditorComponent onSubmit={codeEditorSubmitHandler} />,
-    <QueueComponent resultID={resultID} onFinish={queueFinishHandler} />,
+    <CodeEditorComponent key="codeEditor" onSubmit={codeEditorSubmitHandler} />,
+    <QueueComponent
+      key="queue"
+      resultID={resultID}
+      onFinish={queueFinishHandler}
+    />,
     <ExecutionResultsComponent
+      key="executionResults"
       value={executionResult}
+      onResState={onRes}
       onPageChange={() => setPageState(0)}
     />,
   ];
