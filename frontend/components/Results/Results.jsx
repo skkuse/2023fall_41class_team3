@@ -30,7 +30,7 @@ const Results = ({ resultsData, userCode }) => {
           FootPrint
         </button>
         <button
-          className={`w-[20%] font-bold text-white p-2 ${refactoringBtnClassName}`}
+          className={`w-[20%] font-bold rounded-t text-white p-2 ${refactoringBtnClassName}`}
           onClick={handleRefactoringBtn}>
           Refactoring
         </button>
