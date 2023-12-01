@@ -52,7 +52,7 @@ docker run --rm -d -p 8080:15672 -p 5672:5672 --name rabbitmq-server rabbitmq
 
 ## Run Flask server
 ```bash
-gunicorn -w 4 -b 127.0.0.1:4000 'app:app'
+gunicorn -w 1 -b 127.0.0.1:4000 'app:app'
 ```
 
 ## Run Celery
