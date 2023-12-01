@@ -22,13 +22,13 @@ const Home = () => {
   const [resState, setResState] = useState(0); // 0: code, 1: results, 2: refactoring
   const updateResState = (state) => {
     setResState(state);
-  }
+  };
   return (
     <main className="flex-col w-full">
       <section id="code-section" className="my-10 p-10 flex-center h-[36rem]">
         <CodeSection
           onSubmit={(code) => setCode(code)}
-          onRes = {updateResState}
+          onRes={updateResState}
           onFinish={(results) =>
             setExecutionResults((before) => {
               return { ...before, ...results };
@@ -37,13 +37,20 @@ const Home = () => {
         />
       </section>
 
-      <section id="analysis" className="flex flex-row gap-5 mx-9 h-auto min-h-[45rem]">
+      <section
+        id="analysis"
+        className="flex flex-row gap-5 mx-9 h-auto min-h-[45rem]">
         <div className="w-1/5">
           <ServerInformationSection />
         </div>
 
         <div className="w-4/5 flex-col mb-20 min-h-[45rem] h-auto">
-          <ResultSection code={code} state={resState} updateState= {updateResState} results={executionResults} />
+          <ResultSection
+            code={code}
+            state={resState}
+            updateState={updateResState}
+            results={executionResults}
+          />
         </div>
       </section>
     </main>

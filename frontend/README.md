@@ -1,4 +1,12 @@
-## 알면 좋은 거
+## 설치
+
+```bash
+npm install @monaco-editor/react
+
+npm install axios
+
+npm install react-icons --save
+```
 
 **특정 폴더를 제외한 폴더구조 출력**
 
