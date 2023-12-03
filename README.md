@@ -1,92 +1,101 @@
 # CodEco (Code + Eco)
 ## 2023-2 SKKU Software Engineering Team 3 Project
 
-Web application for carbon footprint calculation of user inputted code.
+**CodEco** is a project that aims to calculate the environmental
+impact of written software code. A large percentage of carbon emission
+comes from computing resources, and this will continue to grow, as
+software becomes more demanding for high performance tasks. Our website
+calculates the energy resources required to execute a small piece of
+software, therefore allowing the user to correctly analyze the code in
+an ecological perspective.
 
+We expect users to insert their Java code and calculate the carbon
+footprint of the code, and as a result understand how much of an impact
+such a small piece of code could bring to this world. We provide a
+minimalistic IDE-like setup for calculation, where each code is exeucted
+within a Docker container. We also provide detailed analysis on the
+results, as well as refactorization features that utilize OpenAI's AI
+model, ChatGPT to optimize the code in terms of ecological impact.
 
+![alt text](/images/website-1.png)
 
+This project is done as an undergraduate project for
+*Introduction to Software Engineering* by 7 team members
+associated in Sungkyunkwan University, South Korea.
 
-## DB setting
+## Features
+Our website provides carbon footprint calculation of Java code. We provide
+asynchronous operations to allow for more concurrent users. The following are
+some detailed features our website provides.
 
-MySQL 버전: 8.0.34
+- View submission status and queue.
 
-### MySQL 실행
+   ![alt text](/images/website-2.png)
 
-sudo mysql<br/>
-또는<br/>
-sudo /etc/init.d/mysql restart (실행 안될 경우)<br/>
+- View results of code execution.
 
-### database 생성 및 유저 권한 부여
+   ![alt text](/images/website-3.png)
+  
+- Detailed analysis of code execution results.
 
-create database codeco; <br/>
-create user 'admin'@'localhost' identified by 'password'; // password는 사용할 비밀번호로 변경<br/>
-grant all privileges on codeco.\* to 'admin'@'localhost';<br/>
-flush privileges;<br/>
-<br/>
+   ![alt text](/images/website-4.png)
+  
+- Refactorization using ChatGPT.
 
-### 가상환경 생성
+   ![alt text](/images/website-5.png)
+## Execution
 
-cd db <br/>
-sudo apt install python3.9-venv<br/>
-python3 -m venv venv<br/>
-source venv/bin/activate<br/>
+This repository contains code for both the server-side backend and client-side frontend.
+Execution of the following scripts should be done within each respective directories.
 
-### mysql 연결 및 orm에 필요한 라이브러리 설치
+### Backend
+**[Python Environment]** Install the required Python packages. Use any virtual environment of your choice.
+```bash
+pip install -r requirements.txt
+```
 
-pip install flask flask-sqlalchemy flask-migrate python-dotenv pymysql<br/>
-pip install python-dotenv // 보안 설정(.env파일)<br/>
+**[Database Setup]** Our website uses MySQL. The following script generates a database named 'codeco' with an admin user identified by a password of your choice.
+```sql
+CREATE DATABASE codeco;
+CREATE USER 'admin'@'localhost' identified by <INSERT PASSWORD>;
+GRANT ALL PRIVILEGES on codeco.* to 'admin'@'localhost';
+FLUSH PRIVILEGES;
+```
+Run the following script to use Flask and MySQL together.
+```bash
+flask db upgrade
+```
 
-### .env configuration
+**[.env File]** Create the file './backend/.env' with the contents as below. Fill the necessary credentials.
+```bash
+FLASK_APP=app.py
+FLASK_ENV=development
+DB_USER=admin
+DB_PASSWORD=<INSERT PASSWORD>
+DB_HOST=localhost
+DB_PORT=3306
+DB_NAME=codeco
+CELERY_BROKER= amqp://localhost:5672
+CELERY_RESULT_BACKEND=redis://localhost:6379
+OPENAI_API_KEY=<INSERT OPENAI_API_KEY>
+```
 
-.env파일 생성 및 작성 (각자 환경에 맞게 변경)<br/>
-<br/>
-FLASK_APP=run.py<br/>
-FLASK_ENV=development<br/>
-DB_USER=admin<br/>
-DB_PASSWORD=password<br/>
-DB_HOST=localhost<br/>
-DB_PORT=3306<br/>
-DB_NAME=codeco<br/>
+**[Redis and RabbitMQ]** Our website uses Redis and RabbitMQ. The following scripts are for running the Docker containers for these two.
+```bash
+docker run --rm -d -p 6379:6379 --name redis-server redis &&\
+docker run --rm -d -p 8080:15672 -p 5672:5672 --name rabbitmq-server rabbitmq
+```
 
-### 마이그레이션 설정
+**[Server Execution]** Use the following two scripts to run the server. The two scripts should be ran in two separate terminals.
+```bash
+gunicorn -w 1 -b 127.0.0.1:4000 'app:app'
+```
+```bash
+celery -A app.celery worker --loglevel INFO
+```
 
-flask db init // 초기화<br/>
-flask db migrate -m "Initial migration." //마이그레이션 파일 생성<br/>
-flask db upgrade // 데이터베이스에 마이그레이션 적용<br/>
-<br/>
-
-### DB schema 수정 시
-
-flask db migrate <br/>
-flask db upgrade <br/>
-
-### 서버 실행
-
-flask run
-
-### API test
-
-1. 코드 제출 테스트 <br/>
-   curl -X POST http://127.0.0.1:5000/submit_code \
-    -H "Content-Type: application/json" \
-    -d '{"refactoring_status": false, "code": "public class Main { public static void main(String[] args) { System.out.println(\"Hello, World!\"); } }"}'
-
-=> {"code":"public class Main { public static void main(String[] args) { System.out.println(\"Hello, World!\"); } }","refactoring_status":false,"submission_date":"2023-11-09","submission_id":1}
-
-2. 리팩토링 통계 제출 테스트<br/>
-   curl -X POST http://127.0.0.1:5000/submit_reduction \
-    -H "Content-Type: application/json" \
-    -d '{"reduction_amount": 5.25}'
-
-=> {"reduction_amount":5.25,"refactoring_date":"Thu, 09 Nov 2023 00:00:00 GMT","static_id":1}
-
-curl -X POST http://127.0.0.1:5000/submit_reduction \
- -H "Content-Type: application/json" \
- -d '{"reduction_amount": 1.5}'
-
-=> {"reduction_amount":1.5,"refactoring_date":"Thu, 09 Nov 2023 00:00:00 GMT","static_id":2}
-
-3. 총 탄소배출 절감량 계산 테스트 <br/>
-   curl -X GET http://127.0.0.1:5000/total_reduction
-
-=> {"total_reduction":6.75}
+### Frontend
+Install the NodeJS modules and run the following script for NextJS development mode.
+```bash
+npm run dev
+```
