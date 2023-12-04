@@ -3,8 +3,7 @@ import Image from "next/image";
 
 const Header = () => {
   return (
-    // <header className="w-full h-[7rem] gradient flex-col justify-center items-center">
-    <header className="w-full h-[7rem] bg-green-900 flex-col justify-center font-serif items-center py-2">
+    <header className="w-full h-[7rem] bg-gradient-to-r from-green-900 via-green-700 to-green-900 bg-green-900 flex-col justify-center font-serif items-center py-2">
       <Link href="/">
         <div className="flex items-center content-center justify-center m-1">
           <Image

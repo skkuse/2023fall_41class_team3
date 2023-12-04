@@ -11,11 +11,10 @@ const Loader = () => {
       <div className="flex flex-col items-center justify-center flex-auto p-4 md:p-5">
         <div className="flex justify-center">
           <div
-            className="animate-spin inline-block w-6 h-6 border-[3px] border-current border-transparent text-blue-600 rounded-full dark:text-blue-500"
+            className="animate-spin inline-block w-6 h-6 border-[3px] border-current text-blue-600 rounded-full dark:text-blue-500"
             role="status"
-            aria-label="loading"
-          >
-            <span className="sr-only text-white">Loading...</span>
+            aria-label="loading">
+            <span className="text-white sr-only">Loading...</span>
           </div>
         </div>
       </div>
@@ -53,26 +52,22 @@ const Table = ({ queue }) => {
                 <tr>
                   <th
                     scope="col"
-                    className="px-6 py-3 text-start text-xs font-medium text-white uppercase"
-                  >
+                    className="px-6 py-3 text-xs font-medium text-white uppercase text-start">
                     Index
                   </th>
                   <th
                     scope="col"
-                    className="px-6 py-3 text-start text-xs font-medium text-white uppercase"
-                  >
+                    className="px-6 py-3 text-xs font-medium text-white uppercase text-start">
                     Submission ID
                   </th>
                   <th
                     scope="col"
-                    className="px-6 py-3 text-start text-xs font-medium text-white uppercase"
-                  >
+                    className="px-6 py-3 text-xs font-medium text-white uppercase text-start">
                     Submission Time
                   </th>
                   <th
                     scope="col"
-                    className="px-6 py-3 text-start text-xs font-medium text-white uppercase"
-                  >
+                    className="px-6 py-3 text-xs font-medium text-white uppercase text-start">
                     Status
                   </th>
                 </tr>
