@@ -23,7 +23,7 @@ const ExecutionResultsComponent = ({ value, onResState, onPageChange }) => {
         {value.success && (
           <div className="flex w-7/12 h-full justify-between align-center items-center">
             <div>
-              Runtime: {value.runtime_real.toFixed(3)} <br />
+              Runtime: {value.runtime_real.toFixed(3)} ms<br />
               Energy Needed: {value.energy_needed.toFixed(3)} kWh <br />
               Carbon Footprint: {value.carbon_footprint.toFixed(3)}g CO2e
             </div>
