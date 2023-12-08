@@ -95,7 +95,41 @@ celery -A app.celery worker --loglevel INFO
 ```
 
 ### Frontend
+
+**[Version]**
+
+```bash
+node : v21.1.0
+npm : v10.2.0
+monaco-editor/react : v4.6.0
+Next.js : v13.5.6
+```
+
+**[How to change when using a different node version]**
+
+```bash
+nvm install node
+nvm use 21.1.0
+nvm alias default 21.1.0
+```
+
+**[Setup]**
+
+```bash
+npm install
+
+npm install @monaco-editor/react --force
+
+npm install axios
+
+```
+
+**[Getting Started]**
+
 Install the NodeJS modules and run the following script for NextJS development mode.
+
 ```bash
 npm run dev
+# or
+yarn dev
 ```
